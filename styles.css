@@ -1,4 +1,24 @@
-
 html {
+  background: url(./assets/rainbow-background.jpg) no-repeat center fixed;
+  background-size: cover;
   font-family: 'Grandstander', cursive;
+}
+
+body {
+  display: flex;
+  justify-content: space-between;
+}
+
+main {
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+section {
+  border: 2px solid blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
