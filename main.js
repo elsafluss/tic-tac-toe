@@ -19,19 +19,25 @@ gameBoard.addEventListener('click', function (event) {
   var square = event.target.id
   placeToken(event, currentGame)
   event.target.disabled = true
-  if (currentGame.turnCount > 4) {
-    checkForWin()
-  }
+  // if (currentGame.turnCount > 4) {
+  //   checkForWin(currentGame)
+  // }
 })
-
 
 function checkForWin(currentGame) {
   for (var i = 0; i < currentGame.winConds.length; i++) {
-    if (winConds[i][0] === currentGame.winConds[i][1] && currentGame.winConds[i][1] === currentGame.winConds[i][2]) {
+    if (currentGame.winConds[i][0] === currentGame.winConds[i][1] && currentGame.winConds[i][1] === currentGame.winConds[i][2]) {
+      console.log("you won")
       // save i to player's wins array
       return true
     }
   }
+}
+
+function getGameFromStorage(currentGame) {
+  console.log(localStorage)
+  var savedGame = localStorage.getItem("currentGame")
+  JSON.parse(savedGame)
 }
 
 function saveToStorage(currentGame) {
@@ -39,26 +45,25 @@ function saveToStorage(currentGame) {
   localStorage.setItem("currentGame", saveThisGame)
 }
 
-function whoseTurn(currentGame) {
-  if (currentGame.turnCount === 0 || currentGame.turnCount % 2 !== 0) {
-    return true
-  } else {
-    return false
-  }
+function isPlayerOneTurn(currentGame) {
+  return (currentGame.turnCount % 2 === 0)
 }
 
 function placeToken(event, currentGame, playerOne, playerTwo) {
   var currentGameFromStorage = localStorage.getItem("currentGame")
-  var currentGame = JSON.parse(currentGameFromStorage)
+  var currentGame = currentGame || JSON.parse(currentGameFromStorage)
   var playerOne = currentGame.players[0]
   var playerTwo = currentGame.players[1]
-  var playerOneTurn = whoseTurn(currentGame)
-  if (playerOneTurn = true) {
+  var placement = event.target.id
+  if (isPlayerOneTurn(currentGame)) {
     event.target.classList.add('poo')
+    currentGame.board[placement] = playerOne.playerName
+    console.log(currentGame.board)
   } else {
     event.target.classList.add('unicorn')
+    currentGame.board[placement] = playerTwo.playerName
   }
-  console.log(currentGame.turnCount)
   currentGame.turnCount++
+  checkForWin(currentGame)
   saveToStorage(currentGame)
 }

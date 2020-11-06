@@ -1,15 +1,15 @@
 class Game {
   constructor(placement) {
     this.board = {
-      a: null,
-      b: null,
-      c: null,
-      d: null,
-      e: null,
-      f: null,
-      g: null,
-      h: null,
-      i: null,
+      // a: null,
+      // b: null,
+      // c: null,
+      // d: null,
+      // e: null,
+      // f: null,
+      // g: null,
+      // h: null,
+      // i: null,
       x: null,
     };
     this.winConds = [
@@ -27,13 +27,6 @@ class Game {
     this.gameOver = false;
     this.players = [];
   }
-
-  getGameFromStorage(currentGame) {
-    console.log(localStorage)
-    var savedGame = localStorage.getItem("currentGame")
-    JSON.parse(savedGame)
-  }
-
 
   updateWins() {
 
