@@ -6,8 +6,6 @@
 #FF7363 salmon */
 
 html {
-  /* background: url(./assets/rainbow-background.jpg) no-repeat center fixed; */
-  /* background-size: cover; */
   background-color: #E81AB8;
   font-family: 'Grandstander', cursive;
 }
@@ -37,7 +35,6 @@ main {
   min-width: 55%;
   min-height: 700px;
   background-color: #9626FF;
-  /* opacity: .5; */
   margin-top: 3%;
   margin-bottom: 3%;
 }
@@ -72,9 +69,9 @@ button {
 #box-e,
 #box-f {
   border-bottom: 5px solid #FF7363;
-  background-image: url(./assets/unicorn.png);
+  /* background-image: url(./assets/unicorn.png);
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center; */
 }
 
 #box-a,
@@ -84,18 +81,19 @@ button {
 #box-e,
 #box-h {
   border-right: 5px solid #FF7363;
-  background-image: url(./assets/poo.png);
+  /* background-image: url(./assets/poo.png);
   background-repeat: no-repeat;
   background-position: center;
+*/
 }
 
+
 section {
-  /* border: 2px solid blue; */
+  border: 2px solid blue;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   min-width: 20%;
   background-color: #5D69E8;
-  /* opacity: .5; */
 }
