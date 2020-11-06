@@ -1,40 +1,24 @@
-// win checkers:
-// rowOne(board, playerId)
-// if (board.a === board.b && board.b === board.c) {
-//   playerId wins
-// }
-//
-// rowTwo(board, playerId)
-// if (board.d === board.e && board.e === board.f) {
-//   playerId wins
-// }
-//
-// rowThree(board, playerId)
-// if (board.g === board.h && board.h === board.i) {
-//   playerId wins
-// }
-//
-// colOne(board, playerId)
-// if (board.a === board.d && board.d === board.g) {
-//   playerId wins
-// }
-//
-// colTwo(board, playerId)
-// if (board.b === board.e && board.e === board.h) {
-//   playerId wins
-// }
-//
-// colThree(board, playerId)
-// if (board.c === board.f && board.f === board.i) {
-//   playerId wins
-// }
-//
-// diagA(board, playerId)
-// if (board.a === board.e && board.e === board.i) {
-//   playerId wins
-// }
-//
-// diagB(board, playerId)
-// if (board.c === board.e && board.e === board.g) {
-//   playerId wins
-// }
+class Game {
+  constructor(placement) {
+    // playerOne = new Player(playerOne, playerToken)
+    // playerTwo = new Player(playerTwo, playerToken)
+    // placement = where on board {a: null, b: null, c: null, d: null,
+    //   e: null, f: null, g: null, h: null, i: null}
+    // playerOneTurn = true
+    // turnCount = 0
+    // gameOver = false
+  }
+
+  checkForWin(turnCount, event) {
+    // if turnCount > 4
+    // if event.target = a, colOne(), rowOne(), diagA()
+    // if event.target = b, colTwo(), rowOne()
+    // if event.target = c, colThree(), rowOne(), diagB()
+    // if event.target = d, colOne(), rowTwo()
+    // if event.target = e, colTwo(), rowTwo(), diagA(), diagB()
+    // if event.target = f, colThree(), rowTwo()
+    // if event.target = g, colOne(), rowThree(), diagB()
+    // if event.target = h, colTwo(), rowThree()
+    // if event.target = i, colThree(), rowThree(), diagA
+  }
+}

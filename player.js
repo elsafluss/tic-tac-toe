@@ -23,21 +23,3 @@ class Player {
     // JSON.parse it
   }
 }
-
-class Game {
-  constructor(placement) {
-    // playerOne = new Player(playerOne, playerToken)
-    // playerTwo = new Player(playerTwo, playerToken)
-    // placement = where on board {a: null, b: null, c: null, d: null,
-    //   e: null, f: null, g: null, h: null, i: null}
-    // playerOneTurn = true
-    // turnCount = 0
-    // gameOver = false
-  }
-
-  checkForWin(turnCount, event) {
-    // if turnCount > 4
-    // if the event.target was *space*
-    // call win checkers
-  }
-}
