@@ -1,24 +1,59 @@
 class Game {
   constructor(placement) {
-    // playerOne = new Player(playerOne, playerToken)
-    // playerTwo = new Player(playerTwo, playerToken)
-    // placement = where on board {a: null, b: null, c: null, d: null,
-    //   e: null, f: null, g: null, h: null, i: null}
-    // playerOneTurn = true
-    // turnCount = 0
-    // gameOver = false
+    var playerOne = new Player(playerOne, playerToken);
+    var playerTwo = new Player(playerTwo, playerToken);
+    this.board = {
+      a: null,
+      b: null,
+      c: null,
+      d: null,
+      e: null,
+      f: null,
+      g: null,
+      h: null,
+      i: null
+    };
+    this.winConds = [
+      [board.a, board.b, board.c],
+      [board.d, board.e, board.f],
+      [board.g, board.h, board.i],
+      [board.a, board.d, board.g],
+      [board.b, board.e, board.h],
+      [board.c, board.f, board.i],
+      [board.a, board.e, board.i],
+      [board.c, board.e, board.g],
+    ];
+    this.playerOneTurn = true;
+    this.turnCount = 0;
+    this.gameOver = false;
   }
 
-  checkForWin(turnCount, event) {
-    // if turnCount > 4
-    // if event.target = a, colOne(), rowOne(), diagA()
-    // if event.target = b, colTwo(), rowOne()
-    // if event.target = c, colThree(), rowOne(), diagB()
-    // if event.target = d, colOne(), rowTwo()
-    // if event.target = e, colTwo(), rowTwo(), diagA(), diagB()
-    // if event.target = f, colThree(), rowTwo()
-    // if event.target = g, colOne(), rowThree(), diagB()
-    // if event.target = h, colTwo(), rowThree()
-    // if event.target = i, colThree(), rowThree(), diagA
+  placeToken(turnCount, event) {
+    // update this.board with event placement
+    if (this.turnCount > 4) {} else {
+      console.log("game over, it's a draw")
+      resetGame()
+    }
+  }
+
+  updateWins() {
+
+  }
+
+  checkForWin() {
+    for (var i = 0; i < winConds.length; i++) {
+      if (winConds[i][0] === winConds[i][1] && winConds[i][1] === winConds[i][2]) {
+        // save i to player's wins array
+        return true
+      }
+    }
+  }
+
+  resetGame() {
+
+  }
+
+  updateWins() {
+
   }
 }

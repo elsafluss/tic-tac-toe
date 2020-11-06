@@ -84,10 +84,12 @@ button {
   /* background-image: url(./assets/poo.png);
   background-repeat: no-repeat;
   background-position: center;
-} */
+*/
+}
+
 
 section {
-  /* border: 2px solid blue; */
+  border: 2px solid blue;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
