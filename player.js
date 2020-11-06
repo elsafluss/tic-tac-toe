@@ -1,25 +1,24 @@
 class Player {
-  constructor(playerId, playerToken) {
-    this.playerId = playerId;
+  constructor(playerName, playerToken) {
+    this.playerName = playerName;
     this.playerToken = playerToken;
     this.winCount = 0;
     this.wins = [];
   }
 
-  saveWinsToStorage(playerId) {
-    // getPlayerFromStorage()
-    // this.winCount++
-    // stringify it
-    // put it back in localStorage
-  }
-
-  getWinsFromStorage(playerId) {
-    // getPlayerFromStorage()
-    // return this.winCount
-  }
-
-  getPlayerFromStorage(playerId) {
-    // get player array from localStorage by playerId
-    // JSON.parse it
-  }
+  // saveWinsToStorage(playerId) {
+  //   this.getPlayerFromStorage(playerId)
+  //   // this.winCount++
+  //   JSON.stringify('playerId')
+  //   localStorage.setItem('playerId', playerId)
+  // }
+  //
+  // getWinsFromStorage(playerId) {
+  //   // getPlayerFromStorage()
+  //   // return this.winCount
+  // }
+  //
+  // getPlayerFromStorage(playerId) {
+  //   JSON.parse(localStorage.getItem(playerId))
+  // }
 }

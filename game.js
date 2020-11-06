@@ -1,7 +1,5 @@
 class Game {
   constructor(placement) {
-    // var playerOne = new Player(playerOne, playerToken);
-    // var playerTwo = new Player(playerTwo, playerToken);
     this.board = {
       a: null,
       b: null,
@@ -11,7 +9,8 @@ class Game {
       f: null,
       g: null,
       h: null,
-      i: null
+      i: null,
+      x: null,
     };
     this.winConds = [
       [this.board.a, this.board.b, this.board.c],
@@ -26,10 +25,18 @@ class Game {
     this.playerOneTurn = true;
     this.turnCount = 0;
     this.gameOver = false;
+    this.players = [];
   }
 
-  updateWins() {
+  saveToStorage(currentGame) {
+    var saveThisGame = JSON.stringify(currentGame)
+    localStorage.setItem("currentGame", saveThisGame)
+  }
 
+  getGameFromStorage(currentGame) {
+    console.log(localStorage)
+    var savedGame = localStorage.getItem("currentGame")
+    JSON.parse(savedGame)
   }
 
   checkForWin() {
@@ -41,11 +48,11 @@ class Game {
     }
   }
 
-  resetGame() {
+  updateWins() {
 
   }
 
-  updateWins() {
+  resetGame() {
 
   }
 }

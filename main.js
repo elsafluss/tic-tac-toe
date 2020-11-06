@@ -1,6 +1,4 @@
 // on pageload:
-// getPlayerFromStorage(playerOne)
-// getPlayerFromStorage(playerTwo)
 // update win display
 
 // on click:
@@ -8,31 +6,49 @@
 //  update this.board.target with playerId
 //  placeToken()
 //  updateTurnCount()
+//  flip playerOneTurn value
 //  checkForWin()
 
-var playerOne = JSON.parse(localStorage.getItem('playerOne')) || []
+var savedPlayerOne = JSON.parse(localStorage.getItem('playerOne')) || []
+var savedPlayerTwo = JSON.parse(localStorage.getItem('playerTwo')) || []
 var gameBoard = document.querySelector('.game-board')
 
-gameBoard.addEventListener('click', function (event, currentGame) {
-  var currentGame = new Game(event.target.id)
+document.querySelector('body').onload = createGame(event)
+
+function createGame(event) {
+  var playerOne = new Player("Elsa", 'poo');
+  var playerTwo = new Player('Matt', 'unicorn');
+  var currentGame = new Game(x)
+  currentGame.players.push(playerOne)
+  currentGame.players.push(playerTwo)
+  console.log(currentGame)
+  currentGame.saveToStorage(currentGame)
+  return currentGame
+}
+
+gameBoard.addEventListener('click', function (event) {
+  var currentGameFromStorage = localStorage.getItem("currentGame")
+  var currentGame = JSON.parse(currentGameFromStorage)
   var square = event.target.id
   placeToken(event, currentGame)
+  currentGame.playerOneTurn = !(currentGame.playerOneTurn)
   event.target.disabled = true
   if (currentGame.turnCount > 4) {
     checkForWin()
   }
 })
 
-// it's always player one's turn!
-function placeToken(event, currentGame) {
+function placeToken(event, currentGame, playerOne, playerTwo) {
+  var currentGameFromStorage = localStorage.getItem("currentGame")
+  var currentGame = JSON.parse(currentGameFromStorage)
+  var playerOne = currentGame.players[0]
   if (currentGame.playerOneTurn) {
-    console.log("playerOne", currentGame.playerOneTurn)
+    // console.log('playerOne', currentGame.playerOneTurn)
     event.target.classList.add('poo')
-    currentGame.playerOneTurn = false
   } else {
-    console.log("playerTwo", currentGame.playerOneTurn)
+    // console.log('playerTwo', currentGame.playerOneTurn)
     event.target.classList.add('unicorn')
-    currentGame.playerOneTurn = true
+    // currentGame.playerOneTurn = true
   }
   // and disable that button
 }
