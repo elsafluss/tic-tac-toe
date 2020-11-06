@@ -57,29 +57,39 @@ button {
   border: none;
   width: 140px;
   height: 140px;
-  /* background-image: url(./assets/unicorn.png);
-  background-repeat: no-repeat;
-  background-position: center; */
 }
 
-#box-a,
-#box-b,
-#box-c,
-#box-d,
-#box-e,
-#box-f {
+.poo {
+  background-image: url(./assets/poo.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.unicorn {
+  background-image: url(./assets/unicorn.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+#a,
+#b,
+#c,
+#d,
+#e,
+#f {
   border-bottom: 5px solid #FF7363;
   /* background-image: url(./assets/unicorn.png);
   background-repeat: no-repeat;
   background-position: center; */
 }
 
-#box-a,
-#box-d,
-#box-g,
-#box-b,
-#box-e,
-#box-h {
+#a,
+#d,
+#g,
+#b,
+#e,
+#h {
   border-right: 5px solid #FF7363;
   /* background-image: url(./assets/poo.png);
   background-repeat: no-repeat;
@@ -87,13 +97,16 @@ button {
 */
 }
 
-
 section {
-  border: 2px solid blue;
+  /* border: 2px solid blue; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   min-width: 20%;
   background-color: #5D69E8;
+}
+
+.hidden {
+  display: none;
 }
