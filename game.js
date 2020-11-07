@@ -1,17 +1,6 @@
 class Game {
   constructor(placement) {
-    this.board = {
-      a: "",
-      b: "",
-      c: "",
-      d: "",
-      e: "",
-      f: "",
-      g: "",
-      h: "",
-      i: "",
-      x: "",
-    };
+    this.board = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "x"];
     this.winConds = [
       ["a", "b", "c"],
       ["d", "e", "f"],

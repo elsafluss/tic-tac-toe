@@ -26,44 +26,21 @@ function createGame(event) {
   currentGame.players.push(playerTwo)
   saveToStorage(currentGame)
 }
-//
-// function checkForWin(currentGame) {
-//   var placements = currentGame.board
-//   for (var i = 0; i < currentGame.winConds.length; i++) {
-//     var hasWon = currentGame.winConds[i]
-//     for (var j = 0; j < 3; j++) {
-//       if (currentGame.turnCount > 4) {
-//         placements[hasWon[j]] === placements[hasWon[j + 1]] && placements[hasWon[j + 1]] === placements[hasWon[j + 2]]
-//       }
-//     }
-//     console.log("placements[hasWon[i]]", placements[hasWon[j]])
-//     console.log("placements[hasWon[i + 1]", placements[hasWon[j + 1]])
-//     console.log("placements[hasWon[i + 2]", placements[hasWon[j + 2]])
-//   }
-// }
 
-function checkForWin(currentGame, currentPlayerName) {
-
-}
-
-
-function checkForWin(currentGame, currentPlayerName) {
+function checkForWin(currentGame, currentPlayer, placement) {
   for (var i = 0; i < 8; i++) {
-    var winCondsPositionOne = currentGame.winConds[i][0]
-    var winCondsPositionTwo = currentGame.winConds[i][1]
-    var winCondsPositionThree = currentGame.winConds[i][2]
-    console.log(currentGame.board.a) // where all the tokens are sitting
-    console.log(winCondsPositionOne)
-    // console.log(currentGame.board.winCondsPositionOne)
-    if (currentGame.board.winCondsPositionOne !== "") {
-      // console.log("could win")
+    if (currentGame.winConds[i].includes(placement)) { // does the array include that letter
+      var thisCouldWin = currentGame.winConds[i] // only winConds with that letter
+      console.log(thisCouldWin[0]) // these are all a single letter
+      console.log(thisCouldWin[1]) // why can't i check to see if they match
+      console.log(thisCouldWin[2]) // each other?
+      // i just don't think this next line is checking anything
+      if (thisCouldWin[0] == thisCouldWin[1] && thisCouldWin[1] == thisCouldWin[2]) {
+        return true
+      }
     }
-    // ((currentGame.board[winCondsPositionOne] === currentGame.board[winCondsPositionTwo]) &&
-    // (currentGame.board[winCondsPositionTwo] === currentGame.board[winCondsPositionThree]))) {
-    // console.log("win")
   }
 }
-
 
 function saveToStorage(currentGame) {
   var saveThisGame = JSON.stringify(currentGame)
@@ -121,14 +98,12 @@ function takeTurn(event, currentGame, playerOne, playerTwo) {
   var currentGame = currentGame || JSON.parse(currentGameFromStorage) // not working?
   var playerOne = currentGame.players[0]
   var playerTwo = currentGame.players[1]
-  var placement = event.target.id
+  var placement = event.target.id // game board is numbered like an array
   if (isPlayerOneTurn(currentGame)) {
     placeToken(event, playerOne)
-    // currentGame.board[placement] = playerOne.playerName
     var currentPlayer = setPlayerElements(currentGame, placement, playerOne)
   } else {
     placeToken(event, currentGame, playerTwo)
-    // currentGame.board[placement] = playerTwo.playerName
     var currentPlayer = setPlayerElements(currentGame, placement, playerTwo)
   }
   updateCurrentPlayer(playerOne, playerTwo) // flip current player
