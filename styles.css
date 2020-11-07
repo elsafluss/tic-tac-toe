@@ -60,13 +60,13 @@ button:focus {
   outline: none;
 }
 
-.poo {
+.p1 {
   background-image: url(./assets/poo.png);
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.unicorn {
+.p2 {
   background-image: url(./assets/unicorn.png);
   background-repeat: no-repeat;
   background-position: center;

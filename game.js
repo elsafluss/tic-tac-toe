@@ -27,12 +27,4 @@ class Game {
     this.gameOver = false;
     this.players = [];
   }
-
-  updateWins() {
-
-  }
-
-  resetGame() {
-
-  }
 }
