@@ -6,22 +6,26 @@ var currentPlayerTwo = document.querySelector('.two')
 
 document.querySelector('body').onload = createGame(event)
 
+gameBoard.addEventListener('click', function (event) {
+  var currentGame = getGameFromStorage("currentGame")
+  var square = event.target.id
+  takeTurn(event, currentGame)
+  event.target.disabled = true
+})
+
+function getGameFromStorage(currentGame) {
+  var savedGame = localStorage.getItem("currentGame")
+  JSON.parse(savedGame)
+}
+
 function createGame(event) {
-  var playerOne = new Player("Elsa", 'poo');
-  var playerTwo = new Player('Matt', 'unicorn');
+  var playerOne = new Player('player one name', 'p1');
+  var playerTwo = new Player('player two name', 'p2');
   var currentGame = new Game(x)
   currentGame.players.push(playerOne)
   currentGame.players.push(playerTwo)
   saveToStorage(currentGame)
 }
-
-gameBoard.addEventListener('click', function (event) {
-  var currentGameFromStorage = localStorage.getItem("currentGame")
-  var currentGame = JSON.parse(currentGameFromStorage)
-  var square = event.target.id
-  takeTurn(event, currentGame)
-  event.target.disabled = true
-})
 //
 // function checkForWin(currentGame) {
 //   var placements = currentGame.board
@@ -38,27 +42,28 @@ gameBoard.addEventListener('click', function (event) {
 //   }
 // }
 
-function checkForWin(currentGame) {
-  var placements = currentGame.board
-  var theWinsArray = currentGame.winConds
-  if (currentGame.turnCount > 4) {
-    for (var i = 0; i < currentGame.winConds.length; i++) {
-      // console.log(placements[theWinsArray[i]])
-      if (currentGame.board[currentGame.winConds[i][0]] === currentGame.board[currentGame.winConds[i][1]] &&
-        currentGame.board[currentGame.winConds[i][1]] === currentGame.board[currentGame.winConds[i][2]]) {
-        // save i to player's wins array
-        // console.log("you win")
-        return true
-      }
+function checkForWin(currentGame, currentPlayerName) {
+
+}
+
+
+function checkForWin(currentGame, currentPlayerName) {
+  for (var i = 0; i < 8; i++) {
+    var winCondsPositionOne = currentGame.winConds[i][0]
+    var winCondsPositionTwo = currentGame.winConds[i][1]
+    var winCondsPositionThree = currentGame.winConds[i][2]
+    console.log(currentGame.board.a) // where all the tokens are sitting
+    console.log(winCondsPositionOne)
+    // console.log(currentGame.board.winCondsPositionOne)
+    if (currentGame.board.winCondsPositionOne !== "") {
+      // console.log("could win")
     }
+    // ((currentGame.board[winCondsPositionOne] === currentGame.board[winCondsPositionTwo]) &&
+    // (currentGame.board[winCondsPositionTwo] === currentGame.board[winCondsPositionThree]))) {
+    // console.log("win")
   }
 }
 
-function getGameFromStorage(currentGame) {
-  console.log(localStorage)
-  var savedGame = localStorage.getItem("currentGame")
-  JSON.parse(savedGame)
-}
 
 function saveToStorage(currentGame) {
   var saveThisGame = JSON.stringify(currentGame)
@@ -74,23 +79,65 @@ function updateCurrentPlayer(playerOne, playerTwo) {
   currentPlayerTwo.classList.toggle('hidden')
 }
 
+function updateWins(currentPlayerWinCount) {
+  currentPlayerWinCount++
+}
+
+function resetGame(currentGame, playerOne) {
+  currentGame.board.a = ""
+  currentGame.board.b = ""
+  currentGame.board.c = ""
+  currentGame.board.d = ""
+  currentGame.board.e = ""
+  currentGame.board.f = ""
+  currentGame.board.g = ""
+  currentGame.board.h = ""
+  currentGame.board.i = ""
+  currentPlayerName = playerOne.playerName
+  currentGame.turnCount = 0
+  currentGame.playerOneTurn = true
+  currentGame.gameOver = false
+  // do not clear localStorage or you'll lose the win count
+}
+
+function placeToken(event, currentPlayer) {
+  if (currentPlayer.playerToken === 'p1') {
+    event.target.classList.add('p1')
+  } else {
+    event.target.classList.add('p2')
+  }
+}
+
+function setPlayerElements(currentGame, placement, player) {
+  var currentPlayerName = player.playerName
+  var currentPlayerWinCount = player.winCount
+  currentGame.board[placement] = player.playerName
+  var currentPlayer = player
+  return currentPlayer
+}
+
 function takeTurn(event, currentGame, playerOne, playerTwo) {
   var currentGameFromStorage = localStorage.getItem("currentGame")
-  var currentGame = currentGame || JSON.parse(currentGameFromStorage)
+  var currentGame = currentGame || JSON.parse(currentGameFromStorage) // not working?
   var playerOne = currentGame.players[0]
   var playerTwo = currentGame.players[1]
   var placement = event.target.id
   if (isPlayerOneTurn(currentGame)) {
-    event.target.classList.add('poo')
-    currentGame.board[placement] = playerOne.playerName
-    var currentPlayer = playerOne.playerName
+    placeToken(event, playerOne)
+    // currentGame.board[placement] = playerOne.playerName
+    var currentPlayer = setPlayerElements(currentGame, placement, playerOne)
   } else {
-    event.target.classList.add('unicorn')
-    currentGame.board[placement] = playerTwo.playerName
-    var currentPlayer = playerTwo.playerName
+    placeToken(event, currentGame, playerTwo)
+    // currentGame.board[placement] = playerTwo.playerName
+    var currentPlayer = setPlayerElements(currentGame, placement, playerTwo)
   }
-  updateCurrentPlayer(playerOne, playerTwo)
-  currentGame.turnCount++
-  checkForWin(currentGame)
-  saveToStorage(currentGame)
+  updateCurrentPlayer(playerOne, playerTwo) // flip current player
+  currentGame.turnCount++ // add one to turn count
+  saveToStorage(currentGame) // save the current game to storage
+  checkForWin(currentGame, currentPlayer, placement) // has someone won? who knows
+  if (checkForWin) { // if someone won
+    currentGame.gameOver = true // the game is over
+    updateWins(currentPlayer.winCount) // update that player's win count
+    resetGame(currentGame, playerOne) // reset the game (after a timeout)
+  }
 }

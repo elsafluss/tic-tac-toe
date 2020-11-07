@@ -22,17 +22,8 @@ class Game {
       ["a", "e", "i"],
       ["c", "e", "g"],
     ];
-    this.playerOneTurn = true;
     this.turnCount = 0;
     this.gameOver = false;
     this.players = [];
-  }
-
-  updateWins() {
-
-  }
-
-  resetGame() {
-
   }
 }
