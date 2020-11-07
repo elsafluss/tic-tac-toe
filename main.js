@@ -29,13 +29,12 @@ function createGame(event) {
 
 function checkForWin(currentGame, currentPlayer, placement) {
   for (var i = 0; i < 8; i++) {
-    if (currentGame.winConds[i].includes(placement)) { // does the array include that letter
-      var thisCouldWin = currentGame.winConds[i] // only winConds with that letter
-      console.log(thisCouldWin[0]) // these are all a single letter
-      console.log(thisCouldWin[1]) // why can't i check to see if they match
-      console.log(thisCouldWin[2]) // each other?
-      // i just don't think this next line is checking anything
-      if (thisCouldWin[0] == thisCouldWin[1] && thisCouldWin[1] == thisCouldWin[2]) {
+    if (currentGame.winConds[i].includes(placement)) { // does the array include that placement letter?
+      var thisCouldWin = currentGame.winConds[i] // each winConds that has that placement letter
+      var putPlayerNameHere = currentGame.winConds.indexOf(placement) // get index of placement letter within winConds array
+      currentGame.winConds[putPlayerNameHere] = currentPlayer // replace the letter with the playerName
+      if (thisCouldWin[0] == thisCouldWin[1] && thisCouldWin[0] == thisCouldWin[2]) {
+        console.log("please")
         return true
       }
     }
@@ -59,23 +58,23 @@ function updateCurrentPlayer(playerOne, playerTwo) {
 function updateWins(currentPlayerWinCount) {
   currentPlayerWinCount++
 }
-
-function resetGame(currentGame, playerOne) {
-  currentGame.board.a = ""
-  currentGame.board.b = ""
-  currentGame.board.c = ""
-  currentGame.board.d = ""
-  currentGame.board.e = ""
-  currentGame.board.f = ""
-  currentGame.board.g = ""
-  currentGame.board.h = ""
-  currentGame.board.i = ""
-  currentPlayerName = playerOne.playerName
-  currentGame.turnCount = 0
-  currentGame.playerOneTurn = true
-  currentGame.gameOver = false
-  // do not clear localStorage or you'll lose the win count
-}
+//
+// function resetGame(currentGame, playerOne) {
+//   currentGame.board.a = ""
+//   currentGame.board.b = ""
+//   currentGame.board.c = ""
+//   currentGame.board.d = ""
+//   currentGame.board.e = ""
+//   currentGame.board.f = ""
+//   currentGame.board.g = ""
+//   currentGame.board.h = ""
+//   currentGame.board.i = ""
+//   currentPlayerName = playerOne.playerName
+//   currentGame.turnCount = 0
+//   currentGame.playerOneTurn = true
+//   currentGame.gameOver = false
+//   // do not clear localStorage or you'll lose the win count
+// }
 
 function placeToken(event, currentPlayer) {
   if (currentPlayer.playerToken === 'p1') {
@@ -109,10 +108,12 @@ function takeTurn(event, currentGame, playerOne, playerTwo) {
   updateCurrentPlayer(playerOne, playerTwo) // flip current player
   currentGame.turnCount++ // add one to turn count
   saveToStorage(currentGame) // save the current game to storage
-  checkForWin(currentGame, currentPlayer, placement) // has someone won? who knows
+  if (currentGame.turnCount > 4) {
+    checkForWin(currentGame, currentPlayer, placement)
+  } // has someone won? who knows
   if (checkForWin) { // if someone won
     currentGame.gameOver = true // the game is over
     updateWins(currentPlayer.winCount) // update that player's win count
-    resetGame(currentGame, playerOne) // reset the game (after a timeout)
+    // resetGame(currentGame, playerOne) // reset the game (after a timeout)
   }
 }
