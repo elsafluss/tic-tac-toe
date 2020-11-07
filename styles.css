@@ -27,7 +27,6 @@ h3 {
 }
 
 main {
-  /* border: 2px solid black; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -41,7 +40,6 @@ main {
 
 /* grid container */
 .game-board {
-  /* border: 2px solid red; */
   display: grid;
   grid-template-columns: auto auto auto;
   grid-template-rows: auto auto auto;
@@ -52,11 +50,14 @@ main {
 }
 
 button {
-  /* border: 2px dashed black; */
   background: none;
   border: none;
   width: 140px;
   height: 140px;
+}
+
+button:focus {
+  outline: none;
 }
 
 .poo {
@@ -71,34 +72,15 @@ button {
   background-position: center;
 }
 
-
-#a,
-#b,
-#c,
-#d,
-#e,
-#f {
+.bottom-border {
   border-bottom: 5px solid #FF7363;
-  /* background-image: url(./assets/unicorn.png);
-  background-repeat: no-repeat;
-  background-position: center; */
 }
 
-#a,
-#d,
-#g,
-#b,
-#e,
-#h {
+.side-border{
   border-right: 5px solid #FF7363;
-  /* background-image: url(./assets/poo.png);
-  background-repeat: no-repeat;
-  background-position: center;
-*/
 }
 
 section {
-  /* border: 2px solid blue; */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
