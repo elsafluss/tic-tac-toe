@@ -43,15 +43,27 @@ function createGame(event) {
 // }
 
 function checkForWin(currentGame, currentPlayerName) {
-  var placements = currentGame.board
-  var theWinsArray = currentGame.winConds
-  if (currentGame.turnCount > 4) {
-    for (var i = 0; i < currentGame.winConds.length; i++) {
-      if (currentGame.board[currentGame.winConds[i][0]] === currentGame.board[currentGame.winConds[i][1]] &&
-        currentGame.board[currentGame.winConds[i][1]] === currentGame.board[currentGame.winConds[i][2]]) {}
+
+}
+
+
+function checkForWin(currentGame, currentPlayerName) {
+  for (var i = 0; i < 8; i++) {
+    var winCondsPositionOne = currentGame.winConds[i][0]
+    var winCondsPositionTwo = currentGame.winConds[i][1]
+    var winCondsPositionThree = currentGame.winConds[i][2]
+    console.log(currentGame.board.a) // where all the tokens are sitting
+    console.log(winCondsPositionOne)
+    // console.log(currentGame.board.winCondsPositionOne)
+    if (currentGame.board.winCondsPositionOne !== "") {
+      // console.log("could win")
     }
+    // ((currentGame.board[winCondsPositionOne] === currentGame.board[winCondsPositionTwo]) &&
+    // (currentGame.board[winCondsPositionTwo] === currentGame.board[winCondsPositionThree]))) {
+    // console.log("win")
   }
 }
+
 
 function saveToStorage(currentGame) {
   var saveThisGame = JSON.stringify(currentGame)
@@ -96,9 +108,10 @@ function placeToken(event, currentPlayer) {
   }
 }
 
-function setPlayerElements(player) {
+function setPlayerElements(currentGame, placement, player) {
   var currentPlayerName = player.playerName
   var currentPlayerWinCount = player.winCount
+  currentGame.board[placement] = player.playerName
   var currentPlayer = player
   return currentPlayer
 }
@@ -111,17 +124,17 @@ function takeTurn(event, currentGame, playerOne, playerTwo) {
   var placement = event.target.id
   if (isPlayerOneTurn(currentGame)) {
     placeToken(event, playerOne)
-    currentGame.board[placement] = playerOne.playerName
-    var currentPlayer = setPlayerElements(playerOne)
+    // currentGame.board[placement] = playerOne.playerName
+    var currentPlayer = setPlayerElements(currentGame, placement, playerOne)
   } else {
-    placeToken(event, playerTwo)
-    currentGame.board[placement] = playerTwo.playerName
-    var currentPlayer = setPlayerElements(playerTwo)
+    placeToken(event, currentGame, playerTwo)
+    // currentGame.board[placement] = playerTwo.playerName
+    var currentPlayer = setPlayerElements(currentGame, placement, playerTwo)
   }
   updateCurrentPlayer(playerOne, playerTwo) // flip current player
   currentGame.turnCount++ // add one to turn count
   saveToStorage(currentGame) // save the current game to storage
-  checkForWin(currentGame, currentPlayer) // has someone won? who knows
+  checkForWin(currentGame, currentPlayer, placement) // has someone won? who knows
   if (checkForWin) { // if someone won
     currentGame.gameOver = true // the game is over
     updateWins(currentPlayer.winCount) // update that player's win count
