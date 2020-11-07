@@ -1,26 +1,26 @@
 class Game {
   constructor(placement) {
     this.board = {
-      // a: null,
-      // b: null,
-      // c: null,
-      // d: null,
-      // e: null,
-      // f: null,
-      // g: null,
-      // h: null,
-      // i: null,
-      x: null,
+      a: "",
+      b: "",
+      c: "",
+      d: "",
+      e: "",
+      f: "",
+      g: "",
+      h: "",
+      i: "",
+      x: "",
     };
     this.winConds = [
-      [this.board.a, this.board.b, this.board.c],
-      [this.board.d, this.board.e, this.board.f],
-      [this.board.g, this.board.h, this.board.i],
-      [this.board.a, this.board.d, this.board.g],
-      [this.board.b, this.board.e, this.board.h],
-      [this.board.c, this.board.f, this.board.i],
-      [this.board.a, this.board.e, this.board.i],
-      [this.board.c, this.board.e, this.board.g],
+      ["a", "b", "c"],
+      ["d", "e", "f"],
+      ["g", "h", "i"],
+      ["a", "d", "g"],
+      ["b", "e", "h"],
+      ["c", "f", "i"],
+      ["a", "e", "i"],
+      ["c", "e", "g"],
     ];
     this.playerOneTurn = true;
     this.turnCount = 0;
