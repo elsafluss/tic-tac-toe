@@ -1,5 +1,5 @@
-var savedPlayerOne = JSON.parse(localStorage.getItem('playerOne')) || []
-var savedPlayerTwo = JSON.parse(localStorage.getItem('playerTwo')) || []
+// var savedPlayerOne = JSON.parse(localStorage.getItem('playerOne')) || []
+// var savedPlayerTwo = JSON.parse(localStorage.getItem('playerTwo')) || []
 var gameBoard = document.querySelector('.game-board')
 var currentPlayerOne = document.querySelector('.one')
 var currentPlayerTwo = document.querySelector('.two')
@@ -12,29 +12,43 @@ function createGame(event) {
   var currentGame = new Game(x)
   currentGame.players.push(playerOne)
   currentGame.players.push(playerTwo)
-  saveToStorage(currentGame)
+  var playerOneWins = currentGame.players[0].winCount
+  var playerTwoWins = currentGame.players[1].winCount
+  var currentWins = getWinsFromStorage("wins") || {}
+  currentWins.playerOneWins = playerOneWins
+  currentWins.playerTwoWins = playerTwoWins
+  // JSON.parse(localStorage.getItem("wins")) || currentWins{playerOneWins}
+  // var currentWins.playerOneWins =
+  saveToStorage(currentGame, currentWins)
 }
 
-function saveToStorage(currentGame) {
+function saveToStorage(currentGame, currentWins) {
   var saveThisGame = JSON.stringify(currentGame)
   localStorage.setItem("currentGame", saveThisGame)
+  var saveTheseWins = JSON.stringify(currentWins)
+  localStorage.setItem("wins", saveTheseWins)
 }
 
 gameBoard.addEventListener('click', function (event) {
   var currentGame = getGameFromStorage("currentGame")
+  var currentWins = getWinsFromStorage("wins")
   currentGame.gameOver = false
   var square = event.target.id
-  takeTurn(event, currentGame)
+  takeTurn(event, currentGame, currentWins)
   event.target.disabled = true
 })
 
 function getGameFromStorage() {
-  var savedGame = localStorage.getItem("currentGame")
-  var currentGame = JSON.parse(savedGame)
+  var currentGame = JSON.parse(localStorage.getItem("currentGame"))
   return currentGame
 }
 
-function takeTurn(event, currentGame) {
+function getWinsFromStorage() {
+  var currentWins = JSON.parse(localStorage.getItem("currentWins"))
+  return currentWins
+}
+
+function takeTurn(event, currentGame, currentWins) {
   var playerOne = currentGame.players[0]
   var playerTwo = currentGame.players[1]
   var placement = event.target.id
@@ -48,7 +62,7 @@ function takeTurn(event, currentGame) {
   }
   updateCurrentPlayerDisplay()
   checkForWin(currentGame, currentPlayer, placement)
-  saveToStorage(currentGame)
+  saveToStorage(currentGame, currentWins)
   if (currentGame.gameOver === true) {
     currentGame.gameOver = false;
     updateWinsDisplay(currentGame, currentPlayer, playerOne, playerTwo)
