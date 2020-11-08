@@ -46,20 +46,13 @@ function takeTurn(event, currentGame) {
   }
   updateCurrentPlayerDisplay() // flip current player
   currentGame.turnCount++
-  console.log(currentGame)
   saveToStorage(currentGame) // save the current game to storage
   checkForWin(currentGame, currentPlayer, placement) // has someone won? who knows
-  if (checkForWin) { // if someone won
-    currentGame.gameOver = true // the game is over
+  if (currentGame.gameOver) { // if someone won
     updateWins(currentPlayer.winCount) // update that player's win count
-    // resetGame(currentGame, playerOne) // reset the game (after a timeout)
+    resetGame(event, currentGame, playerOne) // reset the game (after a timeout)
   }
 }
-
-// function saveToStorage(currentGame) {
-//   var saveThisGame = JSON.stringify(currentGame)
-//   localStorage.setItem("currentGame", saveThisGame)
-// }
 
 function isPlayerOneTurn(currentGame) {
   return (currentGame.turnCount % 2 === 0)
@@ -72,10 +65,9 @@ function placeToken(event, currentPlayer) {
     event.target.classList.add('p2')
   }
 }
-// i just finished checking this one 
+
 function setPlayerElements(currentGame, placement, player) {
   var currentPlayerName = player.playerName
-  // var currentPlayerWinCount = player.winCount
   var putItHere = currentGame.board.indexOf(placement)
   currentGame.board[putItHere] = currentPlayerName
   var currentPlayer = player
@@ -88,40 +80,89 @@ function updateCurrentPlayerDisplay() {
 }
 
 function checkForWin(currentGame, currentPlayer, placement) {
-  for (var i = 0; i < 8; i++) {
-    // console.log("the winConds now", currentGame.winConds[i])
-    if (currentGame.winConds[i].includes(placement)) { // does the winConds array include that placement letter?
-      // var thisCouldWin = currentGame.winConds[i] // each winConds that has that placement letter
-      var putPlayerNameHere = currentGame.winConds[i].indexOf(placement) // get index of placement letter within winConds array
-      currentGame.winConds[i][putPlayerNameHere] = currentPlayer.playerName // replace the letter with the playerName
-      // ??that's working, but it's resetting each time?
-      // console.log(placement)
-      // console.log("index of placement", currentGame.winConds[i].indexOf(placement))
-      if (currentGame.winConds[i][0] == currentGame.winConds[i][1] && currentGame.winConds[i][0] == currentGame.winConds[i][2]) {
-        console.log("please")
-        return true
-      }
-    }
+  var winConds = []
+  // what if i take the currentGame.board and create the winConds arrays from it on every turn?
+  winConds[0] = [currentGame.board[0], currentGame.board[1], currentGame.board[2]]
+  winConds[1] = [currentGame.board[3], currentGame.board[4], currentGame.board[5]]
+  winConds[2] = [currentGame.board[6], currentGame.board[7], currentGame.board[8]]
+  winConds[3] = [currentGame.board[0], currentGame.board[3], currentGame.board[6]]
+  winConds[4] = [currentGame.board[1], currentGame.board[4], currentGame.board[7]]
+  winConds[5] = [currentGame.board[2], currentGame.board[5], currentGame.board[8]]
+  winConds[6] = [currentGame.board[0], currentGame.board[4], currentGame.board[8]]
+  winConds[7] = [currentGame.board[2], currentGame.board[4], currentGame.board[6]]
+  // then i can check each of these to see if their elements match
+  if (winConds[0][0] === winConds[0][1] && winConds[0][0] === winConds[0][2]) {
+    console.log("congrats row 1", currentPlayer.playerName)
+    currentGame.gameOver = true
+  } else if (winConds[1][0] === winConds[1][1] && winConds[1][0] === winConds[1][2]) {
+    console.log("congrats row 2", currentPlayer.playerName)
+    currentGame.gameOver = true
+  } else if (winConds[2][0] === winConds[2][1] && winConds[2][0] === winConds[2][2]) {
+    console.log("congrats row 3", currentPlayer.playerName)
+    currentGame.gameOver = true
+  } else if (winConds[3][0] === winConds[3][1] && winConds[3][0] === winConds[3][2]) {
+    console.log("congrats column 1", currentPlayer.playerName)
+    currentGame.gameOver = true
+  } else if (winConds[4][0] === winConds[4][1] && winConds[4][0] === winConds[4][2]) {
+    console.log("congrats column 2", currentPlayer.playerName)
+    currentGame.gameOver = true
+  } else if (winConds[5][0] === winConds[5][1] && winConds[5][0] === winConds[5][2]) {
+    console.log("congrats column 3", currentPlayer.playerName)
+    currentGame.gameOver = true
+  } else if (winConds[6][0] === winConds[6][1] && winConds[6][0] === winConds[6][2]) {
+    console.log("congrats diagonal a", currentPlayer.playerName)
+    currentGame.gameOver = true
+  } else if (winConds[7][0] === winConds[7][1] && winConds[7][0] === winConds[7][2]) {
+    console.log("congrats diagonal b", currentPlayer.playerName)
+    currentGame.gameOver = true
+  } else if (!currentGame.gameOver && currentGame.turnCount > 8) {
+    console.log("nobody wins")
+    currentGame.gameOver = true
+    currentGame.isDraw = true
   }
 }
 
 function updateWins(currentPlayerWinCount) {
   currentPlayerWinCount++
 }
-//
-// function resetGame(currentGame, playerOne) {
-//   currentGame.board[0] = a
-//   currentGame.board[1] = b
-//   currentGame.board[2] = c
-//   currentGame.board[3] = d
-//   currentGame.board[4] = e
-//   currentGame.board[5] = f
-//   currentGame.board[6] = g
-//   currentGame.board[7] = h
-//   currentGame.board[8] = i
-//   currentPlayerName = playerOne.playerName
-//   currentGame.turnCount = 0
-//   currentGame.playerOneTurn = true
-//   currentGame.gameOver = false
-//   // do not clear localStorage or you'll lose the win count
-// }
+
+function resetGame(currentGame, playerOne) {
+  currentPlayerName = playerOne.playerName
+  currentGame.turnCount = 0
+  currentGame.playerOneTurn = true
+  currentGame.gameOver = false
+  setTimeout(function () {
+    resetBoard()
+  }, 2000)
+  createGame(event)
+}
+
+function resetBoard() {
+  document.querySelector("#a").classList.remove('p1')
+  document.querySelector("#b").classList.remove('p1')
+  document.querySelector("#c").classList.remove('p1')
+  document.querySelector("#d").classList.remove('p1')
+  document.querySelector("#e").classList.remove('p1')
+  document.querySelector("#f").classList.remove('p1')
+  document.querySelector("#g").classList.remove('p1')
+  document.querySelector("#h").classList.remove('p1')
+  document.querySelector("#i").classList.remove('p1')
+  document.querySelector("#a").classList.remove('p2')
+  document.querySelector("#b").classList.remove('p2')
+  document.querySelector("#c").classList.remove('p2')
+  document.querySelector("#d").classList.remove('p2')
+  document.querySelector("#e").classList.remove('p2')
+  document.querySelector("#f").classList.remove('p2')
+  document.querySelector("#g").classList.remove('p2')
+  document.querySelector("#h").classList.remove('p2')
+  document.querySelector("#i").classList.remove('p2')
+  document.querySelector("#a").disabled = false
+  document.querySelector("#b").disabled = false
+  document.querySelector("#c").disabled = false
+  document.querySelector("#d").disabled = false
+  document.querySelector("#e").disabled = false
+  document.querySelector("#f").disabled = false
+  document.querySelector("#g").disabled = false
+  document.querySelector("#h").disabled = false
+  document.querySelector("#i").disabled = false
+}
