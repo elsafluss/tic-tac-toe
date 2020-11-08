@@ -7,8 +7,8 @@ var currentPlayerTwo = document.querySelector('.two')
 document.querySelector('body').onload = createGame(event)
 
 function createGame(event) {
-  var playerOne = new Player('player one name', 'p1');
-  var playerTwo = new Player('player two name', 'p2');
+  var playerOne = new Player('player-one-name', 'p1');
+  var playerTwo = new Player('player-two-name', 'p2');
   var currentGame = new Game(x)
   currentGame.players.push(playerOne)
   currentGame.players.push(playerTwo)
@@ -38,7 +38,7 @@ function takeTurn(event, currentGame) {
   var playerOne = currentGame.players[0]
   var playerTwo = currentGame.players[1]
   var placement = event.target.id
-  currentGame.turnCount++ // is this working
+  currentGame.turnCount++
   if (isPlayerOneTurn(currentGame)) {
     placeToken(event, playerOne)
     var currentPlayer = setPlayerElements(currentGame, placement, playerOne)
@@ -49,12 +49,10 @@ function takeTurn(event, currentGame) {
   updateCurrentPlayerDisplay()
   checkForWin(currentGame, currentPlayer, placement)
   saveToStorage(currentGame)
-  debugger
   if (currentGame.gameOver === true) {
     currentGame.gameOver = false;
-    updateWinsDisplay(currentGame, currentPlayer)
+    updateWinsDisplay(currentGame, currentPlayer, playerOne, playerTwo)
     resetGame(currentGame, playerOne, playerTwo)
-    // clearTimeout(timeOut)
   }
 }
 
@@ -63,7 +61,7 @@ function isPlayerOneTurn(currentGame) {
 }
 
 function placeToken(event, currentPlayer) {
-  if (currentPlayer.playerToken === 'p1') {
+  if (currentPlayer.playerToken !== 'p1') {
     event.target.classList.add('p1')
   } else {
     event.target.classList.add('p2')
@@ -126,13 +124,13 @@ function checkForWin(currentGame, currentPlayer, placement) {
       currentGame.isDraw = true
     }
   }
-  // currentGame.gameOver = true
 }
 
-function updateWinsDisplay(currentGame, currentPlayer) {
+function updateWinsDisplay(currentGame, currentPlayer, playerOne, playerTwo) {
+  console.log(playerOne)
   currentPlayer.winCount++
-  // console.log(currentPlayer.winCount)
-  document.querySelector('.p1-wins').innerText = `${currentPlayer.winCount}`
+  document.querySelector('.player-one-name').innerText = `${playerOne.winCount}`
+  document.querySelector('.player-two-name').innerText = `${playerTwo.winCount}`
 }
 
 function resetGame(currentGame, playerOne, playerTwo) {
@@ -147,7 +145,6 @@ function resetGame(currentGame, playerOne, playerTwo) {
   saveToStorage(currentGame)
   currentGame.players[0] = playerOne
   currentGame.players[0] = playerTwo
-  // save this game to storage
 }
 
 function resetBoard(currentGame) { // yeah, i know
