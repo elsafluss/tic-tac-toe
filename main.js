@@ -37,6 +37,7 @@ function takeTurn(event, currentGame) {
   var playerOne = currentGame.players[0]
   var playerTwo = currentGame.players[1]
   var placement = event.target.id
+  currentGame.turnCount++ // is this working
   if (isPlayerOneTurn(currentGame)) {
     placeToken(event, playerOne)
     var currentPlayer = setPlayerElements(currentGame, placement, playerOne)
@@ -44,13 +45,12 @@ function takeTurn(event, currentGame) {
     placeToken(event, playerTwo)
     var currentPlayer = setPlayerElements(currentGame, placement, playerTwo)
   }
-  updateCurrentPlayerDisplay() // flip current player
-  currentGame.turnCount++
-  saveToStorage(currentGame) // save the current game to storage
-  checkForWin(currentGame, currentPlayer, placement) // has someone won? who knows
-  if (currentGame.gameOver) { // if someone won
-    updateWins(currentPlayer.winCount) // update that player's win count
-    resetGame(event, currentGame, playerOne) // reset the game (after a timeout)
+  updateCurrentPlayerDisplay()
+  checkForWin(currentGame, currentPlayer, placement)
+  saveToStorage(currentGame)
+  if (currentGame.gameOver) {
+    updateWinsDisplay(currentGame, currentPlayer)
+    resetGame(currentGame, playerOne, playerTwo)
   }
 }
 
@@ -81,7 +81,6 @@ function updateCurrentPlayerDisplay() {
 
 function checkForWin(currentGame, currentPlayer, placement) {
   var winConds = []
-  // what if i take the currentGame.board and create the winConds arrays from it on every turn?
   winConds[0] = [currentGame.board[0], currentGame.board[1], currentGame.board[2]]
   winConds[1] = [currentGame.board[3], currentGame.board[4], currentGame.board[5]]
   winConds[2] = [currentGame.board[6], currentGame.board[7], currentGame.board[8]]
@@ -90,7 +89,6 @@ function checkForWin(currentGame, currentPlayer, placement) {
   winConds[5] = [currentGame.board[2], currentGame.board[5], currentGame.board[8]]
   winConds[6] = [currentGame.board[0], currentGame.board[4], currentGame.board[8]]
   winConds[7] = [currentGame.board[2], currentGame.board[4], currentGame.board[6]]
-  // then i can check each of these to see if their elements match
   if (winConds[0][0] === winConds[0][1] && winConds[0][0] === winConds[0][2]) {
     console.log("congrats row 1", currentPlayer.playerName)
     currentGame.gameOver = true
@@ -122,22 +120,25 @@ function checkForWin(currentGame, currentPlayer, placement) {
   }
 }
 
-function updateWins(currentPlayerWinCount) {
-  currentPlayerWinCount++
+function updateWinsDisplay(currentGame, currentPlayer) {
+  currentPlayer.winCount++ // this is resetting argh
+  console.log(currentPlayer.winCount)
+  document.querySelector('.p1-wins').innerText = `${currentPlayer.winCount}`
 }
 
-function resetGame(currentGame, playerOne) {
+function resetGame(currentGame, playerOne, playerTwo) {
+  currentGame.players.push(playerOne)
+  currentGame.players.push(playerTwo)
   currentPlayerName = playerOne.playerName
-  currentGame.turnCount = 0
+  // currentGame.turnCount = 0
   currentGame.playerOneTurn = true
   currentGame.gameOver = false
   setTimeout(function () {
     resetBoard()
   }, 2000)
-  createGame(event)
 }
 
-function resetBoard() {
+function resetBoard() { // yeah, i know
   document.querySelector("#a").classList.remove('p1')
   document.querySelector("#b").classList.remove('p1')
   document.querySelector("#c").classList.remove('p1')
