@@ -22,6 +22,7 @@ function saveToStorage(currentGame) {
 
 gameBoard.addEventListener('click', function (event) {
   var currentGame = getGameFromStorage("currentGame")
+  currentGame.gameOver = false
   var square = event.target.id
   takeTurn(event, currentGame)
   event.target.disabled = true
@@ -48,9 +49,12 @@ function takeTurn(event, currentGame) {
   updateCurrentPlayerDisplay()
   checkForWin(currentGame, currentPlayer, placement)
   saveToStorage(currentGame)
-  if (currentGame.gameOver) {
+  debugger
+  if (currentGame.gameOver === true) {
+    currentGame.gameOver = false;
     updateWinsDisplay(currentGame, currentPlayer)
     resetGame(currentGame, playerOne, playerTwo)
+    // clearTimeout(timeOut)
   }
 }
 
@@ -79,7 +83,9 @@ function updateCurrentPlayerDisplay() {
   currentPlayerTwo.classList.toggle('hidden')
 }
 
+
 function checkForWin(currentGame, currentPlayer, placement) {
+  // also show who has won
   var winConds = []
   winConds[0] = [currentGame.board[0], currentGame.board[1], currentGame.board[2]]
   winConds[1] = [currentGame.board[3], currentGame.board[4], currentGame.board[5]]
@@ -89,56 +95,62 @@ function checkForWin(currentGame, currentPlayer, placement) {
   winConds[5] = [currentGame.board[2], currentGame.board[5], currentGame.board[8]]
   winConds[6] = [currentGame.board[0], currentGame.board[4], currentGame.board[8]]
   winConds[7] = [currentGame.board[2], currentGame.board[4], currentGame.board[6]]
-  if (winConds[0][0] === winConds[0][1] && winConds[0][0] === winConds[0][2]) {
-    console.log("congrats row 1", currentPlayer.playerName)
-    currentGame.gameOver = true
-  } else if (winConds[1][0] === winConds[1][1] && winConds[1][0] === winConds[1][2]) {
-    console.log("congrats row 2", currentPlayer.playerName)
-    currentGame.gameOver = true
-  } else if (winConds[2][0] === winConds[2][1] && winConds[2][0] === winConds[2][2]) {
-    console.log("congrats row 3", currentPlayer.playerName)
-    currentGame.gameOver = true
-  } else if (winConds[3][0] === winConds[3][1] && winConds[3][0] === winConds[3][2]) {
-    console.log("congrats column 1", currentPlayer.playerName)
-    currentGame.gameOver = true
-  } else if (winConds[4][0] === winConds[4][1] && winConds[4][0] === winConds[4][2]) {
-    console.log("congrats column 2", currentPlayer.playerName)
-    currentGame.gameOver = true
-  } else if (winConds[5][0] === winConds[5][1] && winConds[5][0] === winConds[5][2]) {
-    console.log("congrats column 3", currentPlayer.playerName)
-    currentGame.gameOver = true
-  } else if (winConds[6][0] === winConds[6][1] && winConds[6][0] === winConds[6][2]) {
-    console.log("congrats diagonal a", currentPlayer.playerName)
-    currentGame.gameOver = true
-  } else if (winConds[7][0] === winConds[7][1] && winConds[7][0] === winConds[7][2]) {
-    console.log("congrats diagonal b", currentPlayer.playerName)
-    currentGame.gameOver = true
-  } else if (!currentGame.gameOver && currentGame.turnCount > 8) {
-    console.log("nobody wins")
-    currentGame.gameOver = true
-    currentGame.isDraw = true
+  if (!currentGame.gameOver) {
+    if (winConds[0][0] === winConds[0][1] && winConds[0][0] === winConds[0][2]) {
+      console.log("congrats row 1", currentPlayer.playerName)
+      currentGame.gameOver = true
+    } else if (winConds[1][0] === winConds[1][1] && winConds[1][0] === winConds[1][2]) {
+      console.log("congrats row 2", currentPlayer.playerName)
+      currentGame.gameOver = true
+    } else if (winConds[2][0] === winConds[2][1] && winConds[2][0] === winConds[2][2]) {
+      console.log("congrats row 3", currentPlayer.playerName)
+      currentGame.gameOver = true
+    } else if (winConds[3][0] === winConds[3][1] && winConds[3][0] === winConds[3][2]) {
+      console.log("congrats column 1", currentPlayer.playerName)
+      currentGame.gameOver = true
+    } else if (winConds[4][0] === winConds[4][1] && winConds[4][0] === winConds[4][2]) {
+      console.log("congrats column 2", currentPlayer.playerName)
+      currentGame.gameOver = true
+    } else if (winConds[5][0] === winConds[5][1] && winConds[5][0] === winConds[5][2]) {
+      console.log("congrats column 3", currentPlayer.playerName)
+      currentGame.gameOver = true
+    } else if (winConds[6][0] === winConds[6][1] && winConds[6][0] === winConds[6][2]) {
+      console.log("congrats diagonal a", currentPlayer.playerName)
+      currentGame.gameOver = true
+    } else if (winConds[7][0] === winConds[7][1] && winConds[7][0] === winConds[7][2]) {
+      console.log("congrats diagonal b", currentPlayer.playerName)
+      currentGame.gameOver = true
+    } else if (!currentGame.gameOver && currentGame.turnCount > 8) {
+      console.log("nobody wins")
+      currentGame.gameOver = true
+      currentGame.isDraw = true
+    }
   }
+  // currentGame.gameOver = true
 }
 
 function updateWinsDisplay(currentGame, currentPlayer) {
-  currentPlayer.winCount++ // this is resetting argh
-  console.log(currentPlayer.winCount)
+  currentPlayer.winCount++
+  // console.log(currentPlayer.winCount)
   document.querySelector('.p1-wins').innerText = `${currentPlayer.winCount}`
 }
 
 function resetGame(currentGame, playerOne, playerTwo) {
-  currentGame.players.push(playerOne)
-  currentGame.players.push(playerTwo)
+  currentGame.board = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "x"]
   currentPlayerName = playerOne.playerName
-  // currentGame.turnCount = 0
+  currentGame.turnCount = 0
   currentGame.playerOneTurn = true
-  currentGame.gameOver = false
-  setTimeout(function () {
-    resetBoard()
+  var timeOut = setTimeout(function () {
+    resetBoard(currentGame)
   }, 2000)
+  currentGame.gameOver = false
+  saveToStorage(currentGame)
+  currentGame.players[0] = playerOne
+  currentGame.players[0] = playerTwo
+  // save this game to storage
 }
 
-function resetBoard() { // yeah, i know
+function resetBoard(currentGame) { // yeah, i know
   document.querySelector("#a").classList.remove('p1')
   document.querySelector("#b").classList.remove('p1')
   document.querySelector("#c").classList.remove('p1')
