@@ -57,11 +57,11 @@ function takeTurn(event, currentGame) {
 }
 
 function isPlayerOneTurn(currentGame) {
-  return (currentGame.turnCount % 2 === 0)
+  return (currentGame.turnCount % 2 !== 0)
 }
 
 function placeToken(event, currentPlayer) {
-  if (currentPlayer.playerToken !== 'p1') {
+  if (currentPlayer.playerToken === 'p1') {
     event.target.classList.add('p1')
   } else {
     event.target.classList.add('p2')
@@ -127,7 +127,6 @@ function checkForWin(currentGame, currentPlayer, placement) {
 }
 
 function updateWinsDisplay(currentGame, currentPlayer, playerOne, playerTwo) {
-  console.log(playerOne)
   currentPlayer.winCount++
   document.querySelector('.player-one-name').innerText = `${playerOne.winCount}`
   document.querySelector('.player-two-name').innerText = `${playerTwo.winCount}`
