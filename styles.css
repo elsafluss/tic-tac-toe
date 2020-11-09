@@ -103,13 +103,13 @@ button:hover {
 }
 
 .p1 {
-  background-image: url(./assets/fox.svgb);
+  background-image: url(./assets/fox.svg);
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .p2 {
-  background-image: url(./assets/unicorn.png);
+  background-image: url(./assets/wolf.svg);
   background-position: center;
   background-repeat: no-repeat;
 }
