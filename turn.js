@@ -5,19 +5,18 @@ class Turn {
     this.playerOne = playerOne;
     this.playerTwo = playerTwo;
     this.placement = placement;
-    this.isPlayerOneTurn = currentGame.isPlayerOneTurn();
+    this.isPlayerOneTurn = currentGame.isItPlayerOnesTurn();
   }
 
   wholeTurn(event) {
+    resetTopWinsDisplay()
     event.target.disabled = true
-    // var savedWins = tempPlayer.getWinsFromStorage("currentWins")
     this.currentGame.turnCount++
     this.oneMove(event)
     updateCurrentPlayerDisplay()
     this.currentGame.checkForWin(currentGame, this.currentPlayer, this.placement)
     tempPlayer.saveWinsToStorage(this.currentWins)
     if (currentGame.gameOver) {
-      debugger
       resetTopWinsDisplay()
       turnOffButtons()
       updateTopWinsDisplay(this.isPlayerOneTurn, currentGame)
@@ -34,7 +33,6 @@ class Turn {
     } else if (!currentGame.isDraw) {
       currentWins.playerTwoWins++
     }
-    updateCurrentPlayerDisplay()
     currentGame.isDraw = false
     this.playerOne.saveWinsToStorage(currentWins)
     document.querySelector('.player-one-name').innerText = `${currentWins.playerOneWins}`

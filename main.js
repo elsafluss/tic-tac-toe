@@ -48,7 +48,7 @@ gameBoard.addEventListener('click', function (event) {
   var currentTurn = new Turn(currentGame, currentWins, playerOne, playerTwo, placement)
   currentTurn.wholeTurn(event)
 })
-
+// could combine somehow
 function placeP1Token(event) {
   event.target.classList.add('p1')
 }
@@ -94,6 +94,8 @@ function resetBoardDisplay(currentGame) {
   document.querySelector("#h").className = "side-border"
   document.querySelector("#i").className = ""
   turnOnButtons()
+  updateCurrentPlayerDisplay()
+
 }
 
 function turnOnButtons() {

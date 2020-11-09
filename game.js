@@ -27,7 +27,7 @@ class Game {
     return currentPlayer
   }
 
-  isPlayerOneTurn(currentGame) {
+  isItPlayerOnesTurn(currentGame) {
     return (this.turnCount % 2 === 0)
   }
 
