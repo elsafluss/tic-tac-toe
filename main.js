@@ -39,32 +39,9 @@ gameBoard.addEventListener('click', function (event) {
   var playerOne = currentGame.players[0]
   var playerTwo = currentGame.players[1]
   var placement = event.target.id
-  takeTurn(event, currentGame, currentWins, playerOne, playerTwo, placement)
+  var currentTurn = new Turn(currentGame, currentWins, playerOne, playerTwo, placement)
+  currentTurn.wholeTurn(event)
 })
-
-function takeTurn(event, currentGame, currentWins, playerOne, playerTwo, placement) {
-  event.target.disabled = true
-  var savedWins = tempPlayer.getWinsFromStorage("currentWins")
-  currentGame.turnCount++
-  if (currentGame.isPlayerOneTurn(currentGame)) {
-    placeToken(event, playerOne)
-    var currentPlayer = currentGame.setPlayerElements(currentGame, placement, playerOne)
-  } else {
-    placeToken(event, playerTwo)
-    var currentPlayer = currentGame.setPlayerElements(currentGame, placement, playerTwo)
-  }
-  resetTopWinsDisplay(currentPlayer)
-  updateCurrentPlayerDisplay()
-  currentGame.checkForWin(currentGame, currentPlayer, placement)
-  playerOne.saveWinsToStorage(currentWins)
-  if (currentGame.gameOver) {
-    turnOffButtons()
-    updateTopWinsDisplay(currentPlayer, currentGame)
-    currentGame.gameOver = false;
-    updateWins(currentGame, currentPlayer, playerOne, playerTwo, currentWins)
-    currentGame.resetGame(currentGame, playerOne, playerTwo, currentPlayer)
-  }
-}
 
 function placeToken(event, currentPlayer) {
   if (currentPlayer.playerToken === 'p1') {
