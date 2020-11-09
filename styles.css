@@ -18,12 +18,14 @@ body {
 
 img {
   max-width: 100px;
+  /* max-height: 100px; */
 }
 
 h1,
 h2,
-h3,
-label {
+h3
+/* label */
+{
   color: #ffffff;
 }
 
@@ -85,6 +87,8 @@ button:focus {
 
 button:hover {
   cursor: pointer;
+  background-color: #E81AB8;
+  opacity: .5;
 }
 
 .bottom-border {
@@ -124,13 +128,13 @@ section {
   min-width: 20%;
 }
 
-.player-one-selection {
+/* .player-one-selection {
   width: 200px;
 }
 
 .player-two-selection {
   width: 200px;
-}
+} */
 
 .hidden {
   display: none;
