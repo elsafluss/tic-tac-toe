@@ -3,6 +3,12 @@ var currentPlayerOne = document.querySelector('.one')
 var currentPlayerTwo = document.querySelector('.two')
 var playerOneWinNumber = document.querySelector('.player-one-name')
 var playerTwoWinNumber = document.querySelector('.player-two-name')
+var gameTitle = document.querySelector('.game-title')
+var drawDisplay = document.querySelector('.draw-display')
+var winsDisplay = document.querySelector('.wins-display')
+var playerOneWinDisplay = document.querySelector('.player-one-wins')
+var playerTwoWinDisplay = document.querySelector('.player-two-wins')
+var buttonLetters = ["#a", "#b", "#c", "#d", "#e", "#f", "#g", "#h", "#i"]
 var currentGame = new Game(x)
 document.querySelector('body').onload = createGame(event)
 
@@ -56,39 +62,25 @@ function updateCurrentPlayerDisplay() {
   currentPlayerTwo.classList.toggle('hidden')
 }
 
-function updateWins(currentGame, currentPlayer, playerOne, playerTwo, currentWins) {
-  var currentWins = tempPlayer.getWinsFromStorage("currentWins")
-  if (!currentGame.isDraw && this.playerName === "player-one-name") {
-    currentWins.playerOneWins++
-  } else if (!currentGame.isDraw) {
-    currentWins.playerTwoWins++
-  }
-  updateCurrentPlayerDisplay()
-  currentGame.isDraw = false
-  playerOne.saveWinsToStorage(currentWins)
-  document.querySelector('.player-one-name').innerText = `${currentWins.playerOneWins}`
-  document.querySelector('.player-two-name').innerText = `${currentWins.playerTwoWins}`
-}
-
-function updateTopWinsDisplay(currentGame) {
-  document.querySelector('.game-title').classList.add('hidden')
+function updateTopWinsDisplay(isPlayerOneTurn, currentGame) {
+  gameTitle.classList.add('hidden')
   if (currentGame.isDraw) {
-    document.querySelector('.draw-display').classList.remove('hidden')
-  } else if (!currentGame.isPlayerOneTurn) {
-    document.querySelector('.player-one-wins').classList.remove('hidden')
-    document.querySelector('.wins-display').classList.remove('hidden')
+    drawDisplay.classList.remove('hidden')
+  } else if (isPlayerOneTurn) {
+    playerOneWinDisplay.classList.remove('hidden')
+    winsDisplay.classList.remove('hidden')
   } else {
-    document.querySelector('.player-two-wins').classList.remove('hidden')
-    document.querySelector('.wins-display').classList.remove('hidden')
+    playerTwoWinDisplay.classList.remove('hidden')
+    winsDisplay.classList.remove('hidden')
   }
 }
 
-function resetTopWinsDisplay(currentPlayer) {
-  document.querySelector('.game-title').classList.remove('hidden')
-  document.querySelector('.draw-display').classList.add('hidden')
-  document.querySelector('.wins-display').classList.add('hidden')
-  document.querySelector('.player-one-wins').classList.add('hidden')
-  document.querySelector('.player-two-wins').classList.add('hidden')
+function resetTopWinsDisplay() {
+  gameTitle.classList.remove('hidden')
+  drawDisplay.classList.add('hidden')
+  winsDisplay.classList.add('hidden')
+  playerOneWinDisplay.classList.add('hidden')
+  playerTwoWinDisplay.classList.add('hidden')
 }
 
 function resetBoardDisplay(currentGame) {
@@ -104,27 +96,14 @@ function resetBoardDisplay(currentGame) {
   turnOnButtons()
 }
 
-// put letters in an array, iterate through that for these funcs
 function turnOnButtons() {
-  document.querySelector("#a").disabled = false
-  document.querySelector("#b").disabled = false
-  document.querySelector("#c").disabled = false
-  document.querySelector("#d").disabled = false
-  document.querySelector("#e").disabled = false
-  document.querySelector("#f").disabled = false
-  document.querySelector("#g").disabled = false
-  document.querySelector("#h").disabled = false
-  document.querySelector("#i").disabled = false
+  for (var i = 0; i < buttonLetters.length; i++) {
+    document.querySelector(`${buttonLetters[i]}`).disabled = false
+  }
 }
 
 function turnOffButtons() {
-  document.querySelector("#a").disabled = true
-  document.querySelector("#b").disabled = true
-  document.querySelector("#c").disabled = true
-  document.querySelector("#d").disabled = true
-  document.querySelector("#e").disabled = true
-  document.querySelector("#f").disabled = true
-  document.querySelector("#g").disabled = true
-  document.querySelector("#h").disabled = true
-  document.querySelector("#i").disabled = true
+  for (var i = 0; i < buttonLetters.length; i++) {
+    document.querySelector(`${buttonLetters[i]}`).disabled = true
+  }
 }
