@@ -1,5 +1,3 @@
-// var savedPlayerOne = JSON.parse(localStorage.getItem('playerOne')) || []
-// var savedPlayerTwo = JSON.parse(localStorage.getItem('playerTwo')) || []
 var gameBoard = document.querySelector('.game-board')
 var currentPlayerOne = document.querySelector('.one')
 var currentPlayerTwo = document.querySelector('.two')
@@ -9,15 +7,16 @@ document.querySelector('body').onload = createGame(event)
 function createGame(event) {
   var playerOne = new Player('player-one-name', 'p1');
   var playerTwo = new Player('player-two-name', 'p2');
-  var currentGame = new Game(x)
+  var savedGame = getGameFromStorage("currentGame")
+  var currentGame = savedGame || new Game(x)
   currentGame.players.push(playerOne)
   currentGame.players.push(playerTwo)
-  var playerOneWins = currentGame.players[0].winCount
-  var playerTwoWins = currentGame.players[1].winCount
+  var savedWins = getWinsFromStorage("currentWins")
+  var playerOneWins = savedWins.playerOneWins || currentGame.players[0].winCount
+  var playerTwoWins = savedWins.playerTwoWins || currentGame.players[1].winCount
   var currentWins = getWinsFromStorage("currentWins") || {}
   currentWins.playerOneWins = playerOneWins
   currentWins.playerTwoWins = playerTwoWins
-  console.log(currentWins)
   saveGameToStorage(currentGame)
   saveWinsToStorage(currentWins)
 }
@@ -52,7 +51,7 @@ function getWinsFromStorage() {
 }
 
 function takeTurn(event, currentGame, currentWins) {
-  console.log(currentWins)
+  getWinsFromStorage("currentWins")
   var playerOne = currentGame.players[0]
   var playerTwo = currentGame.players[1]
   var placement = event.target.id
@@ -70,7 +69,7 @@ function takeTurn(event, currentGame, currentWins) {
   saveWinsToStorage(currentWins)
   if (currentGame.gameOver === true) {
     currentGame.gameOver = false;
-    updateWinsDisplay(currentGame, currentPlayer, playerOne, playerTwo, currentWins)
+    updateWins(currentGame, currentPlayer, playerOne, playerTwo, currentWins)
     resetGame(currentGame, playerOne, playerTwo)
   }
 }
@@ -100,7 +99,7 @@ function updateCurrentPlayerDisplay() {
   currentPlayerTwo.classList.toggle('hidden')
 }
 
-function updateWinsDisplay(currentGame, currentPlayer, playerOne, playerTwo, currentWins) {
+function updateWins(currentGame, currentPlayer, playerOne, playerTwo, currentWins) {
   var currentWins = getWinsFromStorage("currentWins")
   console.log(currentWins)
   if (currentPlayer.playerName === "player-one-name") {
@@ -154,6 +153,7 @@ function checkForWin(currentGame, currentPlayer, placement) {
       currentGame.gameOver = true
       currentGame.isDraw = true
     }
+    // update win count here maybe
   }
 }
 
@@ -167,7 +167,6 @@ function resetGame(currentGame, playerOne, playerTwo, currentWins) {
   }, 2000)
   currentGame.gameOver = false
   saveGameToStorage(currentGame)
-  // saveWinsToStorage(currentWins)
   currentGame.players[0] = playerOne
   currentGame.players[0] = playerTwo
 }

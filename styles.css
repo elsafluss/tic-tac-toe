@@ -60,6 +60,10 @@ button:focus {
   outline: none;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .p1 {
   background-image: url(./assets/poo.png);
   background-repeat: no-repeat;
