@@ -26,6 +26,20 @@ h3 {
   color: #ffffff;
 }
 
+h1 {
+  z-index: 1;
+  background-color: #5D69E8 ; 
+}
+
+header {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 175px;
+  width: 100%;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -47,6 +61,7 @@ main {
   align-content: center;
   width: 85%;
   height: 65%;
+  position: fixed;
 }
 
 button {
