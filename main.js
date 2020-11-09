@@ -6,20 +6,31 @@ var playerTwoWinNumber = document.querySelector('.player-two-name')
 var currentGame = new Game(x)
 document.querySelector('body').onload = createGame(event)
 
+function createTempPlayer() {
+  tempPlayer = new Player('tempPlayer')
+}
 
 function createGame(event) {
   var playerOne = new Player('player-one-name', 'p1');
   var playerTwo = new Player('player-two-name', 'p2');
-  currentGame.players.push(playerOne)
-  currentGame.players.push(playerTwo)
+  addPlayerToGame(playerOne, playerTwo)
   var currentWins = playerOne.getWinsFromStorage("currentWins") || {}
   var playerOneWins = currentWins.playerOneWins || currentGame.players[0].winCount
   var playerTwoWins = currentWins.playerTwoWins || currentGame.players[1].winCount
   currentWins.playerOneWins = playerOneWins
   currentWins.playerTwoWins = playerTwoWins
   playerOne.saveWinsToStorage(currentWins)
+  updatePlayerWins(currentWins)
+}
+
+function updatePlayerWins(currentWins) {
   playerOneWinNumber.innerText = `${currentWins.playerOneWins}`
   playerTwoWinNumber.innerText = `${currentWins.playerTwoWins}`
+}
+
+function addPlayerToGame(playerOne, playerTwo) {
+  currentGame.players.push(playerOne)
+  currentGame.players.push(playerTwo)
 }
 
 gameBoard.addEventListener('click', function (event) {
@@ -30,10 +41,6 @@ gameBoard.addEventListener('click', function (event) {
   var placement = event.target.id
   takeTurn(event, currentGame, currentWins, playerOne, playerTwo, placement)
 })
-
-function createTempPlayer() {
-  tempPlayer = new Player('tempPlayer')
-}
 
 function takeTurn(event, currentGame, currentWins, playerOne, playerTwo, placement) {
   event.target.disabled = true
@@ -46,13 +53,13 @@ function takeTurn(event, currentGame, currentWins, playerOne, playerTwo, placeme
     placeToken(event, playerTwo)
     var currentPlayer = currentGame.setPlayerElements(currentGame, placement, playerTwo)
   }
-  resetTopDisplay(currentPlayer)
+  resetTopWinsDisplay(currentPlayer)
   updateCurrentPlayerDisplay()
   currentGame.checkForWin(currentGame, currentPlayer, placement)
   playerOne.saveWinsToStorage(currentWins)
   if (currentGame.gameOver) {
     turnOffButtons()
-    updateWinsDisplay(currentPlayer, currentGame)
+    updateTopWinsDisplay(currentPlayer, currentGame)
     currentGame.gameOver = false;
     updateWins(currentGame, currentPlayer, playerOne, playerTwo, currentWins)
     currentGame.resetGame(currentGame, playerOne, playerTwo, currentPlayer)
@@ -86,7 +93,7 @@ function updateWins(currentGame, currentPlayer, playerOne, playerTwo, currentWin
   document.querySelector('.player-two-name').innerText = `${currentWins.playerTwoWins}`
 }
 
-function updateWinsDisplay(currentPlayer, currentGame) {
+function updateTopWinsDisplay(currentPlayer, currentGame) {
   document.querySelector('.game-title').classList.add('hidden')
   if (currentGame.isDraw) {
     document.querySelector('.draw-display').classList.remove('hidden')
@@ -99,7 +106,7 @@ function updateWinsDisplay(currentPlayer, currentGame) {
   }
 }
 
-function resetTopDisplay(currentPlayer) {
+function resetTopWinsDisplay(currentPlayer) {
   document.querySelector('.game-title').classList.remove('hidden')
   document.querySelector('.draw-display').classList.add('hidden')
   document.querySelector('.wins-display').classList.add('hidden')
