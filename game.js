@@ -28,7 +28,7 @@ class Game {
   }
 
   isPlayerOneTurn(currentGame) {
-    return (this.turnCount % 2 !== 0)
+    return (this.turnCount % 2 === 0)
   }
 
   checkForWin(currentGame, currentPlayer, placement) {

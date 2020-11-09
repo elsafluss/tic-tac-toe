@@ -70,11 +70,11 @@ function updateWins(currentGame, currentPlayer, playerOne, playerTwo, currentWin
   document.querySelector('.player-two-name').innerText = `${currentWins.playerTwoWins}`
 }
 
-function updateTopWinsDisplay(currentPlayer, currentGame) {
+function updateTopWinsDisplay(currentGame) {
   document.querySelector('.game-title').classList.add('hidden')
   if (currentGame.isDraw) {
     document.querySelector('.draw-display').classList.remove('hidden')
-  } else if (this.playerName === "player-one-name") {
+  } else if (!currentGame.isPlayerOneTurn) {
     document.querySelector('.player-one-wins').classList.remove('hidden')
     document.querySelector('.wins-display').classList.remove('hidden')
   } else {

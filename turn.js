@@ -19,7 +19,8 @@ class Turn {
     if (currentGame.gameOver) {
       resetTopWinsDisplay(this.currentPlayer)
       turnOffButtons()
-      updateTopWinsDisplay(this.currentPlayer, currentGame)
+      debugger
+      updateTopWinsDisplay(this.isPlayerOneTurn, currentGame)
       currentGame.gameOver = false;
       updateWins(currentGame, this.currentPlayer, this.playerOne, this.playerTwo, this.currentWins)
       currentGame.resetGame(currentGame, this.playerOne, this.playerTwo, this.currentPlayer)
@@ -34,7 +35,6 @@ class Turn {
       placeP2Token(event)
       var currentPlayer = currentGame.setPlayerElements(currentGame, this.placement, this.playerTwo)
     }
-    // this.isPlayerOneTurn = !(this.isPlayerOneTurn)
     return currentPlayer
   }
 }
