@@ -18,12 +18,14 @@ body {
 
 img {
   max-width: 100px;
-  max-height: 100px;
+  /* max-height: 100px; */
 }
 
 h1,
 h2,
-h3 {
+h3
+/* label */
+{
   color: #ffffff;
 }
 
@@ -85,6 +87,8 @@ button:focus {
 
 button:hover {
   cursor: pointer;
+  background-color: #E81AB8;
+  opacity: .5;
 }
 
 .bottom-border {
@@ -104,21 +108,15 @@ button:hover {
 }
 
 .p1 {
-
-  background-image: url(./assets/fox.svgb);
-
-  background-image: url(./assets/robot.png);
-
+  background-image: url(./assets/fox.svg);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 90px;
 }
 
 .p2 {
-  background-image: url(./assets/wolf.png);
+  background-image: url(./assets/wolf.svg);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 90px;
 }
 
 section {
@@ -129,6 +127,14 @@ section {
   justify-content: space-around;
   min-width: 20%;
 }
+
+/* .player-one-selection {
+  width: 200px;
+}
+
+.player-two-selection {
+  width: 200px;
+} */
 
 .hidden {
   display: none;

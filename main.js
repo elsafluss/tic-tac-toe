@@ -3,8 +3,11 @@ var currentPlayerOne = document.querySelector('.one')
 var currentPlayerTwo = document.querySelector('.two')
 var playerOneWinNumber = document.querySelector('.player-one-name')
 var playerTwoWinNumber = document.querySelector('.player-two-name')
+// var playerOneTokenSelect = document.querySelector('.player-one-token')
+// var playerTwoTokenSelect = document.querySelector('.player-two-token')
 
 document.querySelector('body').onload = createGame(event)
+
 
 function createGame(event) {
   var playerOne = new Player('player-one-name', 'p1');
@@ -98,6 +101,7 @@ function updateWins(currentGame, currentPlayer, playerOne, playerTwo, currentWin
   } else if (!currentGame.isDraw) {
     currentWins.playerTwoWins++
   }
+  updateCurrentPlayerDisplay()
   currentGame.isDraw = false
   saveWinsToStorage(currentWins)
   document.querySelector('.player-one-name').innerText = `${currentWins.playerOneWins}`
@@ -106,7 +110,6 @@ function updateWins(currentGame, currentPlayer, playerOne, playerTwo, currentWin
 
 function updateWinsDisplay(currentPlayer, currentGame) {
   document.querySelector('.game-title').classList.add('hidden')
-  document.querySelector('.wins-instructions').classList.remove('hidden')
   if (currentGame.isDraw) {
     document.querySelector('.draw-display').classList.remove('hidden')
   } else if (currentPlayer.playerName === "player-one-name") {
@@ -122,7 +125,6 @@ function resetTopDisplay(currentPlayer) {
   document.querySelector('.game-title').classList.remove('hidden')
   document.querySelector('.draw-display').classList.add('hidden')
   document.querySelector('.wins-display').classList.add('hidden')
-  document.querySelector('.wins-instructions').classList.add('hidden')
   document.querySelector('.player-one-wins').classList.add('hidden')
   document.querySelector('.player-two-wins').classList.add('hidden')
 }
@@ -147,3 +149,9 @@ function resetBoard(currentGame) {
   document.querySelector("#h").disabled = false
   document.querySelector("#i").disabled = false
 }
+//
+// function changeToken() {
+//   var p1Token = playerOneTokenSelect.value
+//   var p2Token = playerTwoTokenSelect.value
+//   document.querySelector('.p1-token').src = `./assets/${p1Token}.svg`
+// }

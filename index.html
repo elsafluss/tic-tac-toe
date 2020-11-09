@@ -9,56 +9,64 @@
     <section>
       <div>
         <h2>Player One</h2>
-
-
-        <img src="./assets/robot.png" alt="robot">
-
+        <img src="./assets/fox.svg" class="p1-token" alt="fox">
       </div>
       <div>
         <h3>Wins:</h3>
         <h3 class="player-one-name wins"></h3>
       </div>
+      <!-- <div class="player-one-selection">
+        <label for="tokens">choose a token</label>
+        <select class="token-choices player-one-token" name="tokens" id="tokens">
+          <option value="fox">fox</option>
+          <option value="bear">bear</option>
+          <option value="cat">cat</option>
+        </select>
+      </div> -->
     </section>
     <main>
       <header>
         <h1 class="game-title">tic-tac-toe</h1>
-
-        <img src="./assets/robot.png" class="player-one-wins hidden" alt="player one token"></img>
-
-        <img src="./assets/wolf.png" class="player-two-wins hidden" alt="player two token">
+        <img src="./assets/fox.svg" class="player-one-wins p1-token hidden" alt="player one token"></img>
+        <img src="./assets/wolf.svg" class="player-two-wins p2-token hidden" alt="player two token">
         <h1 class="draw-display hidden">It's a draw!</h1>
         <h1 class="wins-display hidden"> wins!</h1>
-
-      <h1 class="wins-instructions hidden">Place a token to play again</h1>
+      </header>
       <article class="game-board">
-        <button class="bottom-border side-border top" id="a"></button>
-        <button class="bottom-border side-border top" id="b"></button>
-        <button class="bottom-border top" id="c"></button>
-        <button class="bottom-border side-border" id="d"></button>
-        <button class="bottom-border side-border" id="e"></button>
-        <button class="bottom-border" id="f"></button>
-        <button class="side-border bottom" id="g"></button>
-        <button class="side-border bottom"id="h"></button>
-        <button class="bottom" id="i"></button>
+        <button class="button bottom-border side-border top" id="a"></button>
+        <button class="button bottom-border side-border top" id="b"></button>
+        <button class="button bottom-border top" id="c"></button>
+        <button class="button bottom-border side-border" id="d"></button>
+        <button class="button bottom-border side-border" id="e"></button>
+        <button class="button bottom-border" id="f"></button>
+        <button class="button side-border bottom" id="g"></button>
+        <button class="button side-border bottom"id="h"></button>
+        <button class="button bottom" id="i"></button>
         <button id="x" class="hidden"></button>
       </article>
       <footer>
         <h2>Next player:</h2>
-        <img src="./assets/fox.svg" class="current-player one" alt="player one token"></img>
-
-
-
-        <img src="./assets/wolf.png" class="current-player two hidden" alt="player two token">
+        <img src="./assets/fox.svg" class="current-player p1-token one" alt="player one token"></img>
+        <img src="./assets/wolf.svg" class="current-player p2-token two hidden" alt="player two token">
+      </footer>
     </main>
     <section>
       <div>
         <h2>Player Two</h2>
-        <img src="./assets/wolf.png" alt="wolf">
+        <img src="./assets/wolf.svg" alt="wolf">
       </div>
       <div>
         <h3>Wins:</h3>
         <h3 class="player-two-name wins"></h3>
       </div>
+      <!-- <div class="player-two-selection">
+        <label for="tokens">choose a token</label>
+        <select class="token-choices player-two-token" name="tokens" id="tokens">
+          <option value="fox">fox</option>
+          <option value="bear">bear</option>
+          <option value="cat">cat</option>
+        </select>
+      </div> -->
     </section>
     <script type="text/javascript" src="player.js"></script>
     <script type="text/javascript" src="game.js"></script>
