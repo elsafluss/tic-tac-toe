@@ -104,7 +104,11 @@ button:hover {
 }
 
 .p1 {
+
+  background-image: url(./assets/fox.svgb);
+
   background-image: url(./assets/robot.png);
+
   background-position: center;
   background-repeat: no-repeat;
   background-size: 90px;
