@@ -27,48 +27,49 @@ h3 {
 }
 
 h1 {
+  background-color: #9626FF;
+  padding: 20px 10px;
   z-index: 1;
-  background-color: #5D69E8 ; 
 }
 
 header {
+  align-items: center;
   display:flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
   height: 175px;
+  justify-content: center;
   width: 100%;
 }
 
 main {
+  align-items: center;
+  background-color: #9626FF;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  margin-bottom: 3%;
+  margin-top: 3%;
   min-width: 55%;
   min-height: 700px;
-  background-color: #9626FF;
-  margin-top: 3%;
-  margin-bottom: 3%;
 }
 
 /* grid container */
 .game-board {
+  align-content: center;
   display: grid;
   grid-template-columns: auto auto auto;
   grid-template-rows: auto auto auto;
-  justify-content: center;
-  align-content: center;
-  width: 85%;
   height: 65%;
+  justify-content: center;
   position: fixed;
+  width: 85%;
 }
 
 button {
   background: none;
   border: none;
-  width: 140px;
   height: 140px;
+  width: 140px;
 }
 
 button:focus {
@@ -81,14 +82,14 @@ button:hover {
 
 .p1 {
   background-image: url(./assets/poo.png);
-  background-repeat: no-repeat;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .p2 {
   background-image: url(./assets/unicorn.png);
-  background-repeat: no-repeat;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .bottom-border {
@@ -99,13 +100,21 @@ button:hover {
   border-right: 5px solid #FF7363;
 }
 
+.top {
+  margin-top: 50px;
+}
+
+.bottom {
+  margin-bottom: 75px;
+}
+
 section {
+  align-items: center;
+  background-color: #5D69E8;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
   min-width: 20%;
-  background-color: #5D69E8;
 }
 
 .hidden {
