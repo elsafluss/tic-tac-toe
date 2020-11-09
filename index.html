@@ -7,14 +7,23 @@
   </head>
   <body>
     <section>
-      <h2>Player One</h2>
-      <img src="./assets/poo.png" alt="poo">
-      <h3>3 Wins</h3>
+      <div>
+        <h2>Player One</h2>
+        <img src="./assets/poo.png" alt="poo">
+      </div>
+      <div>
+        <h3>Wins:</h3>
+        <h3 class="player-one-name wins"></h3>
+      </div>
     </section>
     <main>
       <header>
-        <h1>tic-tac-toe</h1>
+        <h1 class="game-title">tic-tac-toe</h1>
+        <img src="./assets/poo.png" class="player-one-wins hidden" alt="player one token"></img>
+        <img src="./assets/unicorn.png" class="player-two-wins hidden" alt="player two token">
+        <h1 class="wins-display hidden"> wins!</h1>
       </header>
+      <h1 class="wins-instructions hidden">Place a token to play again</h1>
       <article class="game-board">
         <button class="bottom-border side-border" id="a"></button>
         <button class="bottom-border side-border" id="b"></button>
@@ -28,15 +37,20 @@
         <button id="x" class="hidden"></button>
       </article>
       <div>
-        <h2>Current player:</h2>
-        <img src="./assets/poo.png" class="current-player one" alt="player one"></img>
-        <img src="./assets/unicorn.png" class="current-player two hidden" alt="player two">
+        <h2>Next player:</h2>
+        <img src="./assets/poo.png" class="current-player one" alt="player one token"></img>
+        <img src="./assets/unicorn.png" class="current-player two hidden" alt="player two token">
       </div>
     </main>
     <section>
-      <h2>Player Two</h2>
-      <img src="./assets/unicorn.png" alt="unicorn">
-      <h3>0 Wins</h3>
+      <div>
+        <h2>Player Two</h2>
+        <img src="./assets/unicorn.png" alt="unicorn">
+      </div>
+      <div>
+        <h3>Wins:</h3>
+        <h3 class="player-two-name wins"></h3>
+      </div>
     </section>
     <script type="text/javascript" src="player.js"></script>
     <script type="text/javascript" src="game.js"></script>
