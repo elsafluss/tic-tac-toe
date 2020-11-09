@@ -22,7 +22,8 @@ img {
 
 h1,
 h2,
-h3 {
+h3,
+label {
   color: #ffffff;
 }
 
@@ -121,6 +122,14 @@ section {
   flex-direction: column;
   justify-content: space-around;
   min-width: 20%;
+}
+
+.player-one-selection {
+  width: 200px;
+}
+
+.player-two-selection {
+  width: 200px;
 }
 
 .hidden {

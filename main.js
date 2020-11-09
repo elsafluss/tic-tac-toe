@@ -3,8 +3,11 @@ var currentPlayerOne = document.querySelector('.one')
 var currentPlayerTwo = document.querySelector('.two')
 var playerOneWinNumber = document.querySelector('.player-one-name')
 var playerTwoWinNumber = document.querySelector('.player-two-name')
+var playerOneTokenSelect = document.querySelector('.player-one-token')
+var playerTwoTokenSelect = document.querySelector('.player-two-token')
 
 document.querySelector('body').onload = createGame(event)
+
 
 function createGame(event) {
   var playerOne = new Player('player-one-name', 'p1');
@@ -203,4 +206,10 @@ function resetBoard(currentGame) {
   document.querySelector("#g").disabled = false
   document.querySelector("#h").disabled = false
   document.querySelector("#i").disabled = false
+}
+
+function changeToken() {
+  var p1Token = playerOneTokenSelect.value
+  var p2Token = playerTwoTokenSelect.value
+  document.querySelector('.p1-token').src = `./assets/${p1Token}.svg`
 }
