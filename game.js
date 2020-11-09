@@ -7,18 +7,16 @@ class Game {
     this.players = [];
   }
 
-
   resetGame(currentGame, playerOne, playerTwo, currentPlayer) {
     currentGame.board = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "x"]
     var currentPlayerName = playerOne.playerName
     currentGame.turnCount = 0
     currentGame.playerOneTurn = true
     var timeOut = setTimeout(function () {
-      resetBoard(currentGame)
+      resetBoardDisplay(currentGame)
     }, 1500)
-    saveGameToStorage(currentGame)
     currentGame.players[0] = playerOne
-    currentGame.players[0] = playerTwo
+    currentGame.players[1] = playerTwo
   }
 
   setPlayerElements(currentGame, placement, player) {
