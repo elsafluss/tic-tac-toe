@@ -1,6 +1,8 @@
 var gameBoard = document.querySelector('.game-board')
 var currentPlayerOne = document.querySelector('.one')
 var currentPlayerTwo = document.querySelector('.two')
+var playerOneWinNumber = document.querySelector('.player-one-name')
+var playerTwoWinNumber = document.querySelector('.player-two-name')
 
 document.querySelector('body').onload = createGame(event)
 
@@ -17,8 +19,8 @@ function createGame(event) {
   currentWins.playerTwoWins = playerTwoWins
   saveGameToStorage(currentGame)
   saveWinsToStorage(currentWins)
-  document.querySelector('.player-one-name').innerText = `${currentWins.playerOneWins}`
-  document.querySelector('.player-two-name').innerText = `${currentWins.playerTwoWins}`
+  playerOneWinNumber.innerText = `${currentWins.playerOneWins}`
+  playerTwoWinNumber.innerText = `${currentWins.playerTwoWins}`
 }
 
 function saveGameToStorage(currentGame) {
@@ -67,7 +69,7 @@ function takeTurn(event, currentGame, currentWins, playerOne, playerTwo, placeme
   saveGameToStorage(currentGame)
   saveWinsToStorage(currentWins)
   if (currentGame.gameOver) {
-    updateWinsDisplay(currentPlayer)
+    updateWinsDisplay(currentPlayer, currentGame)
     currentGame.gameOver = false;
     updateWins(currentGame, currentPlayer, playerOne, playerTwo, currentWins)
     resetGame(currentGame, playerOne, playerTwo, currentPlayer)
@@ -112,14 +114,17 @@ function updateWins(currentGame, currentPlayer, playerOne, playerTwo, currentWin
   document.querySelector('.player-two-name').innerText = `${currentWins.playerTwoWins}`
 }
 
-function updateWinsDisplay(currentPlayer) {
+function updateWinsDisplay(currentPlayer, currentGame) {
   document.querySelector('.game-title').classList.add('hidden')
-  document.querySelector('.wins-display').classList.remove('hidden')
   document.querySelector('.wins-instructions').classList.remove('hidden')
-  if (currentPlayer.playerName === "player-one-name") {
+  if (currentGame.isDraw) {
+    document.querySelector('.draw-display').classList.remove('hidden')
+  } else if (currentPlayer.playerName === "player-one-name") {
     document.querySelector('.player-one-wins').classList.remove('hidden')
+    document.querySelector('.wins-display').classList.remove('hidden')
   } else {
     document.querySelector('.player-two-wins').classList.remove('hidden')
+    document.querySelector('.wins-display').classList.remove('hidden')
   }
 }
 
@@ -172,6 +177,7 @@ function resetGame(currentGame, playerOne, playerTwo, currentPlayer) {
 
 function resetDisplay(currentPlayer) {
   document.querySelector('.game-title').classList.remove('hidden')
+  document.querySelector('.draw-display').classList.add('hidden')
   document.querySelector('.wins-display').classList.add('hidden')
   document.querySelector('.wins-instructions').classList.add('hidden')
   document.querySelector('.player-one-wins').classList.add('hidden')
