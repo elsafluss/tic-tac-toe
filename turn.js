@@ -1,36 +1,40 @@
 class Turn {
-  constructor(currentGame, currentWins, playerOne, playerTwo, placement) {
+  constructor(currentGame, currentWins, playerOne, playerTwo, placement, isPlayerOneTurn) {
     this.currentGame = currentGame;
     this.currentWins = currentWins;
     this.playerOne = playerOne;
     this.playerTwo = playerTwo;
     this.placement = placement;
+    this.isPlayerOneTurn = currentGame.isPlayerOneTurn();
   }
 
   wholeTurn(event) {
     event.target.disabled = true
     var savedWins = tempPlayer.getWinsFromStorage("currentWins")
     this.currentGame.turnCount++
-    oneMove(event)
-    resetTopWinsDisplay(currentPlayer)
+    this.oneMove(event)
     updateCurrentPlayerDisplay()
-    this.currentGame.checkForWin(currentGame, currentPlayer, placement)
-    playerOne.saveWinsToStorage(currentWins)
+    this.currentGame.checkForWin(currentGame, this.currentPlayer, this.placement)
+    tempPlayer.saveWinsToStorage(this.currentWins)
     if (currentGame.gameOver) {
+      resetTopWinsDisplay(this.currentPlayer)
       turnOffButtons()
-      updateTopWinsDisplay(currentPlayer, currentGame)
+      updateTopWinsDisplay(this.currentPlayer, currentGame)
       currentGame.gameOver = false;
-      updateWins(currentGame, currentPlayer, playerOne, playerTwo, currentWins)
-      currentGame.resetGame(currentGame, playerOne, playerTwo, currentPlayer)
+      updateWins(currentGame, this.currentPlayer, this.playerOne, this.playerTwo, this.currentWins)
+      currentGame.resetGame(currentGame, this.playerOne, this.playerTwo, this.currentPlayer)
     }
   }
 
-  oneMove(event)
-  if (currentGame.isPlayerOneTurn(currentGame)) {
-    placeToken(event, this.playerOne)
-    var currentPlayer = currentGame.setPlayerElements(currentGame, placement, playerOne)
-  } else {
-    placeToken(event, playerTwo)
-    var currentPlayer = currentGame.setPlayerElements(currentGame, placement, playerTwo)
+  oneMove(event) {
+    if (this.isPlayerOneTurn) {
+      placeP1Token(event)
+      var currentPlayer = currentGame.setPlayerElements(currentGame, this.placement, this.playerOne)
+    } else {
+      placeP2Token(event)
+      var currentPlayer = currentGame.setPlayerElements(currentGame, this.placement, this.playerTwo)
+    }
+    // this.isPlayerOneTurn = !(this.isPlayerOneTurn)
+    return currentPlayer
   }
 }

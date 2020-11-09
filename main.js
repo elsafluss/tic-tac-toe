@@ -11,6 +11,7 @@ function createTempPlayer() {
 }
 
 function createGame(event) {
+  createTempPlayer()
   var playerOne = new Player('player-one-name', 'p1');
   var playerTwo = new Player('player-two-name', 'p2');
   addPlayerToGame(playerOne, playerTwo)
@@ -34,7 +35,6 @@ function addPlayerToGame(playerOne, playerTwo) {
 }
 
 gameBoard.addEventListener('click', function (event) {
-  createTempPlayer()
   var currentWins = tempPlayer.getWinsFromStorage("currentWins")
   var playerOne = currentGame.players[0]
   var playerTwo = currentGame.players[1]
@@ -43,12 +43,12 @@ gameBoard.addEventListener('click', function (event) {
   currentTurn.wholeTurn(event)
 })
 
-function placeToken(event, currentPlayer) {
-  if (currentPlayer.playerToken === 'p1') {
-    event.target.classList.add('p1')
-  } else {
-    event.target.classList.add('p2')
-  }
+function placeP1Token(event) {
+  event.target.classList.add('p1')
+}
+
+function placeP2Token(event) {
+  event.target.classList.add('p2')
 }
 
 function updateCurrentPlayerDisplay() {
@@ -58,7 +58,7 @@ function updateCurrentPlayerDisplay() {
 
 function updateWins(currentGame, currentPlayer, playerOne, playerTwo, currentWins) {
   var currentWins = tempPlayer.getWinsFromStorage("currentWins")
-  if (!currentGame.isDraw && currentPlayer.playerName === "player-one-name") {
+  if (!currentGame.isDraw && this.playerName === "player-one-name") {
     currentWins.playerOneWins++
   } else if (!currentGame.isDraw) {
     currentWins.playerTwoWins++
@@ -74,7 +74,7 @@ function updateTopWinsDisplay(currentPlayer, currentGame) {
   document.querySelector('.game-title').classList.add('hidden')
   if (currentGame.isDraw) {
     document.querySelector('.draw-display').classList.remove('hidden')
-  } else if (currentPlayer.playerName === "player-one-name") {
+  } else if (this.playerName === "player-one-name") {
     document.querySelector('.player-one-wins').classList.remove('hidden')
     document.querySelector('.wins-display').classList.remove('hidden')
   } else {
@@ -104,6 +104,7 @@ function resetBoardDisplay(currentGame) {
   turnOnButtons()
 }
 
+// put letters in an array, iterate through that for these funcs
 function turnOnButtons() {
   document.querySelector("#a").disabled = false
   document.querySelector("#b").disabled = false
