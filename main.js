@@ -9,7 +9,7 @@ var winsDisplay = document.querySelector('.wins-display')
 var playerOneWinDisplay = document.querySelector('.player-one-wins')
 var playerTwoWinDisplay = document.querySelector('.player-two-wins')
 var buttonLetters = ["#a", "#b", "#c", "#d", "#e", "#f", "#g", "#h", "#i"]
-var currentGame = new Game(x)
+var currentGame = new Game()
 document.querySelector('body').onload = createGame(event)
 
 function createTempPlayer() {

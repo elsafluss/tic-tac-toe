@@ -26,26 +26,22 @@ h3 {
   color: #ffffff;
 }
 
-h1 {
-  background-color: #9626FF;
-  padding: 20px 10px;
-  z-index: 1;
-}
-
-.game-title{
+.game-title {
   padding-top: 0;
   position: fixed;
 }
 
 header {
   align-items: center;
-  display:flex;
+  display: flex;
   flex-direction: row;
   height: 175px;
   justify-content: center;
   margin-top: -40px;
   width: 100%;
 }
+
+/* ~~~~~CENTER AREA~~~~~ */
 
 main {
   align-items: center;
@@ -73,7 +69,7 @@ main {
 
 button {
   background: none;
-  border: none;
+  border: 0;
   height: 140px;
   width: 140px;
 }
@@ -90,14 +86,14 @@ button:hover {
 
 button:disabled {
   background-color: none;
-  cursor:default;
+  cursor: default;
 }
 
 .bottom-border {
   border-bottom: 5px solid #FF7363;
 }
 
-.side-border{
+.side-border {
   border-right: 5px solid #FF7363;
 }
 
@@ -120,6 +116,8 @@ button:disabled {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+/* ~~~~~SIDEBARS~~~~~ */
 
 section {
   align-items: center;

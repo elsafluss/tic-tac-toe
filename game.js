@@ -1,5 +1,5 @@
 class Game {
-  constructor(placement) {
+  constructor() {
     this.board = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "x"];
     this.turnCount = 0;
     this.gameOver = false;
