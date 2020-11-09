@@ -18,6 +18,7 @@ body {
 
 img {
   max-width: 100px;
+  max-height: 100px;
 }
 
 h1,
@@ -103,15 +104,21 @@ button:hover {
 }
 
 .p1 {
+
   background-image: url(./assets/fox.svgb);
+
+  background-image: url(./assets/robot.png);
+
   background-position: center;
   background-repeat: no-repeat;
+  background-size: 90px;
 }
 
 .p2 {
-  background-image: url(./assets/unicorn.png);
+  background-image: url(./assets/wolf.png);
   background-position: center;
   background-repeat: no-repeat;
+  background-size: 90px;
 }
 
 section {
