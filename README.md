@@ -10,8 +10,7 @@ Before you play tic-tac-toe, you should probably know the rules of the game. If 
 ## How to play
 To play a game, click in any square. Your token will show up in that square. Then let your opponent click in a different square, and their token will appear. When the game is over, the board will reset after a short pause. You can then start your next game by clicking to place your token in any square. Win counts will persist even if you refresh the page.
 
-![dino vs squid game]
-(https://media.giphy.com/media/hJcQ5sZqZQ5jzzSQm4/giphy.gif)
+![dino vs squid game](https://media.giphy.com/media/hJcQ5sZqZQ5jzzSQm4/giphy.gif)
 
 ## Custom tokens?!
 If you want to customize your tokens, you can do so easily with a find/replace in index.html and styles.css. More information on how to do this is at the bottom of index.html.
