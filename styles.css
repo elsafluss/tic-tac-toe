@@ -107,13 +107,13 @@ button:disabled {
 /* ~~~~~PLAYER TOKENS~~~~~ */
 
 .p1 {
-  background-image: url(./assets/dino.svg);
+  background-image: url(./assets/cat.svg);
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .p2 {
-  background-image: url(./assets/squid.svg);
+  background-image: url(./assets/mouse.svg);
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -129,12 +129,12 @@ section {
   min-width: 20%;
 }
 
-.hidden {
-  display: none;
-}
-
 footer {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+.hidden {
+  display: none;
 }

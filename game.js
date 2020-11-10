@@ -13,7 +13,7 @@ class Game {
     currentGame.turnCount = 0
     currentGame.playerOneTurn = true
     var timeOut = setTimeout(function () {
-      resetBoardDisplay(currentGame)
+      resetBoardDisplay()
     }, 1500)
     currentGame.players[0] = playerOne
     currentGame.players[1] = playerTwo
@@ -66,9 +66,10 @@ class Game {
       } else if (winConds[7][0] === winConds[7][1] && winConds[7][0] === winConds[7][2]) {
         // diagonal to left
         currentGame.gameOver = true
-      } else if (!currentGame.gameOver && currentGame.turnCount > 8) {
+      } else if (currentGame.turnCount > 8) {
         currentGame.gameOver = true
         currentGame.isDraw = true
+        return currentGame.isDraw
       }
     }
   }
