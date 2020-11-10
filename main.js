@@ -8,13 +8,11 @@ var drawDisplay = document.querySelector(".draw-display")
 var winsDisplay = document.querySelector(".wins-display")
 var playerOneWinDisplay = document.querySelector(".player-one-wins")
 var playerTwoWinDisplay = document.querySelector(".player-two-wins")
-var buttonLetters = ["#a", "#b", "#c", "#d", "#e", "#f", "#g", "#h", "#i"]
 var currentGame = new Game()
-document.querySelector("body").onload = createGame(event)
 
-function createTempPlayer() {
-  tempPlayer = new Player("tempPlayer")
-}
+// ~~~~~PAGE LOAD~~~~
+
+document.querySelector("body").onload = createGame(event)
 
 function createGame(event) {
   createTempPlayer()
@@ -30,6 +28,10 @@ function createGame(event) {
   updatePlayerWins(currentWins)
 }
 
+function createTempPlayer() {
+  tempPlayer = new Player("tempPlayer")
+}
+
 function addPlayerToGame(playerOne, playerTwo) {
   currentGame.players.push(playerOne)
   currentGame.players.push(playerTwo)
@@ -40,6 +42,7 @@ function updatePlayerWins(currentWins) {
   playerTwoWinNumber.innerText = `${currentWins.playerTwoWins}`
 }
 
+// ~~~~~CLICK ON GAME BOARD~~~~
 gameBoard.addEventListener("click", function (event) {
   if (event.target.parentNode.className === "game-board") {
     var currentWins = tempPlayer.getWinsFromStorage("currentWins")
@@ -60,7 +63,9 @@ function updateCurrentPlayerDisplay() {
   currentPlayerTwo.classList.toggle("hidden")
 }
 
-function updateTopWinsDisplay(isPlayerOneTurn, currentGame) {
+// ~~~~~AFTER WIN~~~~~
+
+function updateTopWinsDisplay(currentGame, isPlayerOneTurn) {
   gameTitle.classList.add("hidden")
   if (currentGame.isDraw) {
     drawDisplay.classList.remove("hidden")
@@ -81,7 +86,7 @@ function resetTopWinsDisplay() {
   playerTwoWinDisplay.classList.add("hidden")
 }
 
-function resetBoardDisplay(currentGame) {
+function resetBoardDisplay() {
   var bottomAndSide = ["#a", "#b", "#d", "#e"]
   var bottomOnly = ["#c", "#f"]
   var sideOnly = ["#g", "#h"]
@@ -95,18 +100,14 @@ function resetBoardDisplay(currentGame) {
     document.querySelector(`${sideOnly[i]}`).className = "side-border"
   }
   document.querySelector("#i").className = ""
-  turnOnButtons()
+  toggleButtons(false)
   updateCurrentPlayerDisplay()
 }
 
-function turnOnButtons() {
+function toggleButtons(onOrOff) {
+  // true === off, false === on
+  var buttonLetters = ["#a", "#b", "#c", "#d", "#e", "#f", "#g", "#h", "#i"]
   for (var i = 0; i < buttonLetters.length; i++) {
-    document.querySelector(`${buttonLetters[i]}`).disabled = false
-  }
-}
-
-function turnOffButtons() {
-  for (var i = 0; i < buttonLetters.length; i++) {
-    document.querySelector(`${buttonLetters[i]}`).disabled = true
+    document.querySelector(`${buttonLetters[i]}`).disabled = onOrOff
   }
 }
