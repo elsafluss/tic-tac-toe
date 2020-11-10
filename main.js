@@ -85,8 +85,9 @@ function resetBoardDisplay(currentGame) {
   var bottomAndSide = ["#a", "#b", "#d", "#e"]
   var bottomOnly = ["#c", "#f"]
   var sideOnly = ["#g", "#h"]
-  for (var i = 0; i < bottomAndSide.length; i++)
+  for (var i = 0; i < bottomAndSide.length; i++) {
     document.querySelector(`${bottomAndSide[i]}`).className = "bottom-border side-border"
+  }
   for (var i = 0; i < bottomOnly.length; i++) {
     document.querySelector(`${bottomOnly[i]}`).className = "bottom-border"
   }
