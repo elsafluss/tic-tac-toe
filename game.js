@@ -31,7 +31,7 @@ class Game {
     return (this.turnCount % 2 === 0)
   }
 
-  checkForWin(currentGame, currentPlayer, placement) {
+  checkForWin(currentGame, placement) {
     var winConds = []
     winConds[0] = [currentGame.board[0], currentGame.board[1], currentGame.board[2]]
     winConds[1] = [currentGame.board[3], currentGame.board[4], currentGame.board[5]]
@@ -43,20 +43,28 @@ class Game {
     winConds[7] = [currentGame.board[2], currentGame.board[4], currentGame.board[6]]
     if (!currentGame.gameOver) {
       if (winConds[0][0] === winConds[0][1] && winConds[0][0] === winConds[0][2]) {
+        // row one
         currentGame.gameOver = true
       } else if (winConds[1][0] === winConds[1][1] && winConds[1][0] === winConds[1][2]) {
+        // row two
         currentGame.gameOver = true
       } else if (winConds[2][0] === winConds[2][1] && winConds[2][0] === winConds[2][2]) {
+        // row three
         currentGame.gameOver = true
       } else if (winConds[3][0] === winConds[3][1] && winConds[3][0] === winConds[3][2]) {
+        // column one
         currentGame.gameOver = true
       } else if (winConds[4][0] === winConds[4][1] && winConds[4][0] === winConds[4][2]) {
+        // column two
         currentGame.gameOver = true
       } else if (winConds[5][0] === winConds[5][1] && winConds[5][0] === winConds[5][2]) {
+        // column three
         currentGame.gameOver = true
       } else if (winConds[6][0] === winConds[6][1] && winConds[6][0] === winConds[6][2]) {
+        // diagonal to right
         currentGame.gameOver = true
       } else if (winConds[7][0] === winConds[7][1] && winConds[7][0] === winConds[7][2]) {
+        // diagonal to left
         currentGame.gameOver = true
       } else if (!currentGame.gameOver && currentGame.turnCount > 8) {
         currentGame.gameOver = true

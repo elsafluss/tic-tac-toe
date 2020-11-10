@@ -30,14 +30,14 @@ function createGame(event) {
   updatePlayerWins(currentWins)
 }
 
-function updatePlayerWins(currentWins) {
-  playerOneWinNumber.innerText = `${currentWins.playerOneWins}`
-  playerTwoWinNumber.innerText = `${currentWins.playerTwoWins}`
-}
-
 function addPlayerToGame(playerOne, playerTwo) {
   currentGame.players.push(playerOne)
   currentGame.players.push(playerTwo)
+}
+
+function updatePlayerWins(currentWins) {
+  playerOneWinNumber.innerText = `${currentWins.playerOneWins}`
+  playerTwoWinNumber.innerText = `${currentWins.playerTwoWins}`
 }
 
 gameBoard.addEventListener('click', function (event) {
@@ -48,13 +48,9 @@ gameBoard.addEventListener('click', function (event) {
   var currentTurn = new Turn(currentGame, currentWins, playerOne, playerTwo, placement)
   currentTurn.wholeTurn(event)
 })
-// could combine somehow
-function placeP1Token(event) {
-  event.target.classList.add('p1')
-}
 
-function placeP2Token(event) {
-  event.target.classList.add('p2')
+function placeToken(event, useThisToken) {
+  event.target.classList.add(`${useThisToken}`)
 }
 
 function updateCurrentPlayerDisplay() {
@@ -84,23 +80,24 @@ function resetTopWinsDisplay() {
 }
 
 function resetBoardDisplay(currentGame) {
-  var bottomAndSide = ["#a", "#b", "#d", "#e"]
-  var bottomOnly = ["#c", "#f"]
-  var sideOnly = ["#g", "#h"]
-  for (var i = 0; i < bottomAndSide.length; i++)
-    document.querySelector(`${bottomAndSide[i]}`).className = "bottom-border side-border"
-  for (var i = 0; i < bottomOnly.length; i++) {
-    document.querySelector("#c").className = "bottom-border"
-    document.querySelector("#f").className = "bottom-border"
+  var buttonBorders = {
+    bottomAndSide: ["#a", "#b", "#d", "#e"],
+    bottomOnly: ["#c", "#f"],
+    sideOnly: ["#g", "#h"],
   }
-  for (var i = 0; i < sideOnly.length; i++) {
-    document.querySelector("#g").className = "side-border"
-    document.querySelector("#h").className = "side-border"
+  debugger
+  for (var i = 0; i < buttonBorders.bottomOnly.length; i++) {
+    document.querySelector(`${buttonBorders.bottomOnly[i]}`).className = "bottom-border"
+  }
+  for (var i = 0; i < buttonBorders.bottomAndSide.length; i++) {
+    document.querySelector(`${buttonBorders.bottomAndSide[i]}`).className += "side-border"
+  }
+  for (var i = 0; i < buttonBorders.sideOnly.length; i++) {
+    document.querySelector(`${buttonBorders.sideOnly[i]}`).className = "side-border"
   }
   document.querySelector("#i").className = ""
   turnOnButtons()
   updateCurrentPlayerDisplay()
-
 }
 
 function turnOnButtons() {
