@@ -84,14 +84,19 @@ function resetTopWinsDisplay() {
 }
 
 function resetBoardDisplay(currentGame) {
-  document.querySelector("#a").className = "bottom-border side-border"
-  document.querySelector("#b").className = "bottom-border side-border"
-  document.querySelector("#c").className = "bottom-border"
-  document.querySelector("#d").className = "bottom-border side-border"
-  document.querySelector("#e").className = "bottom-border side-border"
-  document.querySelector("#f").className = "bottom-border"
-  document.querySelector("#g").className = "side-border"
-  document.querySelector("#h").className = "side-border"
+  var bottomAndSide = ["#a", "#b", "#d", "#e"]
+  var bottomOnly = ["#c", "#f"]
+  var sideOnly = ["#g", "#h"]
+  for (var i = 0; i < bottomAndSide.length; i++)
+    document.querySelector(`${bottomAndSide[i]}`).className = "bottom-border side-border"
+  for (var i = 0; i < bottomOnly.length; i++) {
+    document.querySelector("#c").className = "bottom-border"
+    document.querySelector("#f").className = "bottom-border"
+  }
+  for (var i = 0; i < sideOnly.length; i++) {
+    document.querySelector("#g").className = "side-border"
+    document.querySelector("#h").className = "side-border"
+  }
   document.querySelector("#i").className = ""
   turnOnButtons()
   updateCurrentPlayerDisplay()

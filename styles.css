@@ -1,10 +1,3 @@
-/*
-#9626FF purple
-#5D69E8 royal blue
-#1CB6FF light blue
-#E81AB8 pink
-#FF7363 salmon */
-
 html {
   background-color: #E81AB8;
   font-family: 'Grandstander', cursive;
@@ -24,6 +17,10 @@ h1,
 h2,
 h3 {
   color: #ffffff;
+}
+
+h2 {
+  margin-top: 25px;
 }
 
 .game-title {
@@ -67,6 +64,8 @@ main {
   width: 85%;
 }
 
+/* ~~~~~GAME BOARD BUTTONS~~~~~ */
+
 button {
   background: none;
   border: 0;
@@ -105,14 +104,16 @@ button:disabled {
   margin-bottom: 75px;
 }
 
+/* ~~~~~PLAYER TOKENS~~~~~ */
+
 .p1 {
-  background-image: url(./assets/fox.svg);
+  background-image: url(./assets/dino.svg);
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .p2 {
-  background-image: url(./assets/wolf.svg);
+  background-image: url(./assets/squid.svg);
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -130,4 +131,10 @@ section {
 
 .hidden {
   display: none;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
