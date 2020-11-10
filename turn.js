@@ -26,19 +26,6 @@ class Turn {
     }
   }
 
-  updateWins(currentGame) {
-    var currentWins = tempPlayer.getWinsFromStorage("currentWins")
-    if (!currentGame.isDraw && this.isPlayerOneTurn) {
-      currentWins.playerOneWins++
-    } else if (!currentGame.isDraw) {
-      currentWins.playerTwoWins++
-    }
-    currentGame.isDraw = false
-    this.playerOne.saveWinsToStorage(currentWins)
-    document.querySelector('.player-one-name').innerText = `${currentWins.playerOneWins}`
-    document.querySelector('.player-two-name').innerText = `${currentWins.playerTwoWins}`
-  }
-
   oneMove(event) {
     if (this.isPlayerOneTurn) {
       var currentPlayer = currentGame.setPlayerElements(currentGame, this.placement, this.playerOne)
@@ -50,5 +37,18 @@ class Turn {
       placeToken(event, useThisToken)
     }
     return currentPlayer
+  }
+
+  updateWins(currentGame) {
+    var currentWins = tempPlayer.getWinsFromStorage("currentWins")
+    if (!currentGame.isDraw && this.isPlayerOneTurn) {
+      currentWins.playerOneWins++
+    } else if (!currentGame.isDraw) {
+      currentWins.playerTwoWins++
+    }
+    currentGame.isDraw = false
+    this.playerOne.saveWinsToStorage(currentWins)
+    document.querySelector('.player-one-name').innerText = `${currentWins.playerOneWins}`
+    document.querySelector('.player-two-name').innerText = `${currentWins.playerTwoWins}`
   }
 }
