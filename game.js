@@ -1,5 +1,5 @@
 class Game {
-  constructor(placement) {
+  constructor() {
     this.board = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "x"];
     this.turnCount = 0;
     this.gameOver = false;
@@ -7,18 +7,16 @@ class Game {
     this.players = [];
   }
 
-
   resetGame(currentGame, playerOne, playerTwo, currentPlayer) {
     currentGame.board = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "x"]
     var currentPlayerName = playerOne.playerName
     currentGame.turnCount = 0
     currentGame.playerOneTurn = true
     var timeOut = setTimeout(function () {
-      resetBoard(currentGame)
+      resetBoardDisplay(currentGame)
     }, 1500)
-    saveGameToStorage(currentGame)
     currentGame.players[0] = playerOne
-    currentGame.players[0] = playerTwo
+    currentGame.players[1] = playerTwo
   }
 
   setPlayerElements(currentGame, placement, player) {
@@ -29,8 +27,8 @@ class Game {
     return currentPlayer
   }
 
-  isPlayerOneTurn(currentGame) {
-    return (currentGame.turnCount % 2 !== 0)
+  isItPlayerOnesTurn(currentGame) {
+    return (this.turnCount % 2 === 0)
   }
 
   checkForWin(currentGame, currentPlayer, placement) {
