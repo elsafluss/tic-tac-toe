@@ -14,7 +14,11 @@ class Turn {
     event.target.disabled = true
     this.currentGame.turnCount++
     this.oneMove(event)
-    updateCurrentPlayerDisplay()
+    if (this.isPlayerOneTurn) {
+      toggleCurrentPlayerDisplay("two")
+    } else {
+      toggleCurrentPlayerDisplay("one")
+    }
     this.currentGame.checkForWin(currentGame, this.placement)
     tempPlayer.saveWinsToStorage(this.currentWins)
     if (currentGame.gameOver) {
