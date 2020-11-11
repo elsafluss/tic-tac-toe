@@ -43,6 +43,7 @@ function updatePlayerWins(currentWins) {
 }
 
 // ~~~~~CLICK ON GAME BOARD~~~~
+
 gameBoard.addEventListener("click", function (event) {
   if (event.target.parentNode.className === "game-board") {
     var currentWins = tempPlayer.getWinsFromStorage("currentWins")
@@ -73,6 +74,7 @@ function toggleCurrentPlayerDisplay(nextPlayer) {
     currentPlayerTwo.classList.remove("hidden")
   }
 }
+
 // ~~~~~AFTER WIN~~~~~
 
 function updateTopWinsDisplay(currentGame, isPlayerOneTurn) {
