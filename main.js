@@ -63,6 +63,16 @@ function updateCurrentPlayerDisplay() {
   currentPlayerTwo.classList.toggle("hidden")
 }
 
+function toggleCurrentPlayerDisplay(nextPlayer) {
+  if (nextPlayer === "one") {
+    currentPlayerOne.classList.remove("hidden")
+    currentPlayerTwo.classList.add("hidden")
+  }
+  if (nextPlayer === "two") {
+    currentPlayerOne.classList.add("hidden")
+    currentPlayerTwo.classList.remove("hidden")
+  }
+}
 // ~~~~~AFTER WIN~~~~~
 
 function updateTopWinsDisplay(currentGame, isPlayerOneTurn) {
@@ -101,7 +111,7 @@ function resetBoardDisplay() {
   }
   document.querySelector("#i").className = ""
   toggleButtons(false)
-  updateCurrentPlayerDisplay()
+  toggleCurrentPlayerDisplay("one")
 }
 
 function toggleButtons(onOrOff) {
