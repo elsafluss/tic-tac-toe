@@ -107,13 +107,13 @@ button:disabled {
 /* ~~~~~PLAYER TOKENS~~~~~ */
 
 .p1 {
-  background-image: url(./assets/cat.svg);
+  background-image: url(./assets/octopus.svg);
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .p2 {
-  background-image: url(./assets/mouse.svg);
+  background-image: url(./assets/squid.svg);
   background-position: center;
   background-repeat: no-repeat;
 }
