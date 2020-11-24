@@ -1,14 +1,14 @@
-var gameBoard = document.querySelector(".game-board")
-var currentPlayerOne = document.querySelector(".one")
-var currentPlayerTwo = document.querySelector(".two")
-var playerOneWinNumber = document.querySelector(".player-one-name")
-var playerTwoWinNumber = document.querySelector(".player-two-name")
-var gameTitle = document.querySelector(".game-title")
-var drawDisplay = document.querySelector(".draw-display")
-var winsDisplay = document.querySelector(".wins-display")
-var playerOneWinDisplay = document.querySelector(".player-one-wins")
-var playerTwoWinDisplay = document.querySelector(".player-two-wins")
-var currentGame = new Game()
+const gameBoard = document.querySelector(".game-board")
+const currentPlayerOne = document.querySelector(".one")
+const currentPlayerTwo = document.querySelector(".two")
+const playerOneWinNumber = document.querySelector(".p1-name")
+const playerTwoWinNumber = document.querySelector(".p2-name")
+const gameTitle = document.querySelector(".game-title")
+const drawDisplay = document.querySelector(".draw-display")
+const winsDisplay = document.querySelector(".wins-display")
+const playerOneWinDisplay = document.querySelector(".player-one-wins")
+const playerTwoWinDisplay = document.querySelector(".player-two-wins")
+const currGame = new Game()
 
 // ~~~~~PAGE LOAD~~~~
 
@@ -16,16 +16,16 @@ document.querySelector("body").onload = createGame(event)
 
 function createGame(event) {
   createTempPlayer()
-  var playerOne = new Player("player-one-name", "p1")
-  var playerTwo = new Player("player-two-name", "p2")
+  let playerOne = new Player("p1-name", "p1")
+  let playerTwo = new Player("p2-name", "p2")
   addPlayerToGame(playerOne, playerTwo)
-  var currentWins = playerOne.getWinsFromStorage("currentWins") || {}
-  var playerOneWins = currentWins.playerOneWins || currentGame.players[0].winCount
-  var playerTwoWins = currentWins.playerTwoWins || currentGame.players[1].winCount
-  currentWins.playerOneWins = playerOneWins
-  currentWins.playerTwoWins = playerTwoWins
-  playerOne.saveWinsToStorage(currentWins)
-  updatePlayerWins(currentWins)
+  let currWins = playerOne.getWinsFromStorage("currentWins") || {}
+  let playerOneWins = currWins.playerOneWins || currGame.players[0].winCount
+  let playerTwoWins = currWins.playerTwoWins || currGame.players[1].winCount
+  currWins.playerOneWins = playerOneWins
+  currWins.playerTwoWins = playerTwoWins
+  playerOne.saveWinsToStorage(currWins)
+  updatePlayerWins(currWins)
 }
 
 function createTempPlayer() {
@@ -33,34 +33,30 @@ function createTempPlayer() {
 }
 
 function addPlayerToGame(playerOne, playerTwo) {
-  currentGame.players.push(playerOne)
-  currentGame.players.push(playerTwo)
+  currGame.players.push(playerOne)
+  currGame.players.push(playerTwo)
 }
 
-function updatePlayerWins(currentWins) {
-  playerOneWinNumber.innerText = `${currentWins.playerOneWins}`
-  playerTwoWinNumber.innerText = `${currentWins.playerTwoWins}`
+function updatePlayerWins(currWins) {
+  playerOneWinNumber.innerText = `${currWins.playerOneWins}`
+  playerTwoWinNumber.innerText = `${currWins.playerTwoWins}`
 }
 
 // ~~~~~CLICK ON GAME BOARD~~~~
+
 gameBoard.addEventListener("click", function (event) {
   if (event.target.parentNode.className === "game-board") {
-    var currentWins = tempPlayer.getWinsFromStorage("currentWins")
-    var playerOne = currentGame.players[0]
-    var playerTwo = currentGame.players[1]
-    var placement = event.target.id
-    var currentTurn = new Turn(currentGame, currentWins, playerOne, playerTwo, placement)
-    currentTurn.wholeTurn(event)
+    let currWins = tempPlayer.getWinsFromStorage("currentWins")
+    let playerOne = currGame.players[0]
+    let playerTwo = currGame.players[1]
+    let placement = event.target.id
+    let currTurn = new Turn(currGame, currWins, playerOne, playerTwo, placement)
+    currTurn.wholeTurn(event)
   }
 })
 
 function placeToken(event, useThisToken) {
   event.target.classList.add(`${useThisToken}`)
-}
-
-function updateCurrentPlayerDisplay() {
-  currentPlayerOne.classList.toggle("hidden")
-  currentPlayerTwo.classList.toggle("hidden")
 }
 
 function toggleCurrentPlayerDisplay(nextPlayer) {
@@ -73,11 +69,12 @@ function toggleCurrentPlayerDisplay(nextPlayer) {
     currentPlayerTwo.classList.remove("hidden")
   }
 }
+
 // ~~~~~AFTER WIN~~~~~
 
-function updateTopWinsDisplay(currentGame, isPlayerOneTurn) {
+function updateTopWinsDisplay(currGame, isPlayerOneTurn) {
   gameTitle.classList.add("hidden")
-  if (currentGame.isDraw) {
+  if (currGame.isDraw) {
     drawDisplay.classList.remove("hidden")
   } else if (isPlayerOneTurn) {
     playerOneWinDisplay.classList.remove("hidden")
@@ -97,18 +94,18 @@ function resetTopWinsDisplay() {
 }
 
 function resetBoardDisplay() {
-  var bottomAndSide = ["#a", "#b", "#d", "#e"]
-  var bottomOnly = ["#c", "#f"]
-  var sideOnly = ["#g", "#h"]
-  for (var i = 0; i < bottomAndSide.length; i++) {
-    document.querySelector(`${bottomAndSide[i]}`).className = "bottom-border side-border"
-  }
-  for (var i = 0; i < bottomOnly.length; i++) {
-    document.querySelector(`${bottomOnly[i]}`).className = "bottom-border"
-  }
-  for (var i = 0; i < sideOnly.length; i++) {
-    document.querySelector(`${sideOnly[i]}`).className = "side-border"
-  }
+  const bottomAndSide = ["#a", "#b", "#d", "#e"]
+  const bottomOnly = ["#c", "#f"]
+  const sideOnly = ["#g", "#h"]
+  bottomAndSide.forEach(function (thing, place, array) {
+    document.querySelector(`${array[place]}`).className = "bot-bor side-bor"
+  })
+  bottomOnly.forEach(function (thing, place, array) {
+    document.querySelector(`${array[place]}`).className = "bot-bor"
+  })
+  sideOnly.forEach(function (thing, place, array) {
+    document.querySelector(`${array[place]}`).className = "side-bor"
+  })
   document.querySelector("#i").className = ""
   toggleButtons(false)
   toggleCurrentPlayerDisplay("one")
@@ -116,8 +113,8 @@ function resetBoardDisplay() {
 
 function toggleButtons(onOrOff) {
   // true === off, false === on
-  var buttonLetters = ["#a", "#b", "#c", "#d", "#e", "#f", "#g", "#h", "#i"]
-  for (var i = 0; i < buttonLetters.length; i++) {
-    document.querySelector(`${buttonLetters[i]}`).disabled = onOrOff
-  }
+  const buttonLetters = ["#a", "#b", "#c", "#d", "#e", "#f", "#g", "#h", "#i"]
+  buttonLetters.forEach(function (thing, place, array) {
+    document.querySelector(`${array[place]}`).disabled = onOrOff
+  })
 }

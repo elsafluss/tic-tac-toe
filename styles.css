@@ -88,11 +88,11 @@ button:disabled {
   cursor: default;
 }
 
-.bottom-border {
+.bot-bor {
   border-bottom: 5px solid #FF7363;
 }
 
-.side-border {
+.side-bor {
   border-right: 5px solid #FF7363;
 }
 

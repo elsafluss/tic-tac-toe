@@ -6,12 +6,12 @@ class Player {
   }
 
   getWinsFromStorage() {
-    var currentWins = JSON.parse(localStorage.getItem("currentWins"))
-    return currentWins
+    let currWins = JSON.parse(localStorage.getItem("currentWins"))
+    return currWins
   }
 
-  saveWinsToStorage(currentWins) {
-    var saveTheseWins = JSON.stringify(currentWins)
+  saveWinsToStorage(currWins) {
+    let saveTheseWins = JSON.stringify(currWins)
     localStorage.setItem("currentWins", saveTheseWins)
   }
 }

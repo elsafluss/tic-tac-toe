@@ -1,60 +1,72 @@
 class Turn {
-  constructor(currentGame, currentWins, playerOne, playerTwo, placement) {
-    this.currentGame = currentGame;
-    this.currentWins = currentWins;
-    this.playerOne = playerOne;
-    this.playerTwo = playerTwo;
+  constructor(currGame, currWins, play1, play2, placement) {
+    this.currGame = currGame;
+    this.currWins = currWins;
+    this.play1 = play1;
+    this.play2 = play2;
     this.placement = placement;
-    this.isPlayerOneTurn = currentGame.isItPlayerOnesTurn();
+    this.isPlayerOneTurn = currGame.isItPlayerOnesTurn();
   }
 
   wholeTurn(event) {
     resetTopWinsDisplay()
-    currentGame.isDraw = false
+    currGame.isDraw = false
     event.target.disabled = true
-    this.currentGame.turnCount++
+    this.currGame.turnCount++
     this.oneMove(event)
+    this.flipPlayer()
+    this.currGame.checkForWin(currGame, this.placement)
+    tempPlayer.saveWinsToStorage(this.currWins)
+    this.gameOverUpdate(currGame)
+  }
+
+  flipPlayer() {
     if (this.isPlayerOneTurn) {
       toggleCurrentPlayerDisplay("two")
     } else {
       toggleCurrentPlayerDisplay("one")
     }
-    this.currentGame.checkForWin(currentGame, this.placement)
-    tempPlayer.saveWinsToStorage(this.currentWins)
-    if (currentGame.gameOver) {
-      currentGame.gameOver = false;
-      this.updateWins(currentGame)
-      currentGame.resetGame(currentGame, this.playerOne, this.playerTwo, this.currentPlayer)
+  }
+
+  gameOverUpdate(currGame) {
+    if (currGame.gameOver) {
+      currGame.gameOver = false;
+      this.updateWins(currGame)
+      currGame.resetGame(currGame, this.play1, this.play2, this.currentPlayer)
       resetTopWinsDisplay()
       toggleButtons(true)
-      updateTopWinsDisplay(currentGame, this.isPlayerOneTurn)
+      updateTopWinsDisplay(currGame, this.isPlayerOneTurn)
     }
   }
 
   oneMove(event) {
     if (this.isPlayerOneTurn) {
-      var currentPlayer = currentGame.setPlayerElements(currentGame, this.placement, this.playerOne)
-      var useThisToken = 'p1'
+      let currentPlayer = currGame.setPlayerElements(currGame, this.placement, this.play1)
+      let useThisToken = 'p1'
       placeToken(event, useThisToken)
     } else {
-      var currentPlayer = currentGame.setPlayerElements(currentGame, this.placement, this.playerTwo)
-      var useThisToken = 'p2'
+      let currentPlayer = currGame.setPlayerElements(currGame, this.placement, this.play2)
+      let useThisToken = 'p2'
       placeToken(event, useThisToken)
     }
-    return currentPlayer
+    // return currentPlayer
   }
 
-  updateWins(currentGame) {
-    var currentWins = tempPlayer.getWinsFromStorage("currentWins")
-    if (!currentGame.isDraw && this.isPlayerOneTurn) {
-      currentWins.playerOneWins++
+  updateWins(currGame) {
+    let currWins = tempPlayer.getWinsFromStorage("currentWins")
+    this.incrementWins(currWins)
+    this.play1.saveWinsToStorage(currWins)
+    document.querySelector('.p1-name').innerText = `${currWins.playerOneWins}`
+    document.querySelector('.p2-name').innerText = `${currWins.playerTwoWins}`
+    return currGame.isDraw
+  }
+
+  incrementWins(currWins) {
+    if (!currGame.isDraw && this.isPlayerOneTurn) {
+      currWins.playerOneWins++
     }
-    if (!currentGame.isDraw && !this.isPlayerOneTurn) {
-      currentWins.playerTwoWins++
+    if (!currGame.isDraw && !this.isPlayerOneTurn) {
+      currWins.playerTwoWins++
     }
-    this.playerOne.saveWinsToStorage(currentWins)
-    document.querySelector('.player-one-name').innerText = `${currentWins.playerOneWins}`
-    document.querySelector('.player-two-name').innerText = `${currentWins.playerTwoWins}`
-    return currentGame.isDraw
   }
 }
