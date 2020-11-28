@@ -9,12 +9,16 @@ class Game {
 
   resetGame(currGame, playerOne, playerTwo, currentPlayer) {
     currGame.brd = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "x"]
-    let currentPlayerName = playerOne.playerName
+    this.updatePlayers(currGame, playerOne, playerTwo)
     currGame.turnCount = 0
-    currGame.playerOneTurn = true
     setTimeout(function () {
       resetBoardDisplay()
     }, 1500)
+  }
+
+  updatePlayers(currGame, playerOne, playerTwo) {
+    let currentPlayerName = playerOne.playerName
+    currGame.playerOneTurn = true
     currGame.players[0] = playerOne
     currGame.players[1] = playerTwo
   }
@@ -55,6 +59,8 @@ class Game {
       currGame.gameOver = true
       currGame.isDraw = true
       return currGame.isDraw
+    } else {
+      currGame.isDraw = false
     }
   }
 

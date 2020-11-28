@@ -16,16 +16,21 @@ document.querySelector("body").onload = createGame(event)
 
 function createGame(event) {
   createTempPlayer()
-  let playerOne = new Player("p1-name", "p1")
-  let playerTwo = new Player("p2-name", "p2")
+  const playerOne = new Player("p1-name", "p1")
+  const playerTwo = new Player("p2-name", "p2")
+  let currWins = setWins(playerOne, playerTwo)
   addPlayerToGame(playerOne, playerTwo)
+  playerOne.saveWinsToStorage(currWins)
+  updatePlayerWins(currWins)
+}
+
+function setWins(playerOne, playerTwo) {
   let currWins = playerOne.getWinsFromStorage("currentWins") || {}
   let playerOneWins = currWins.playerOneWins || currGame.players[0].winCount
   let playerTwoWins = currWins.playerTwoWins || currGame.players[1].winCount
   currWins.playerOneWins = playerOneWins
   currWins.playerTwoWins = playerTwoWins
-  playerOne.saveWinsToStorage(currWins)
-  updatePlayerWins(currWins)
+  return currWins
 }
 
 function createTempPlayer() {
@@ -72,43 +77,40 @@ function toggleCurrentPlayerDisplay(nextPlayer) {
 
 // ~~~~~AFTER WIN~~~~~
 
-function updateTopWinsDisplay(currGame, isPlayerOneTurn) {
-  gameTitle.classList.add("hidden")
+function updateTopWinsDisplay(currGame, isPlayerOneTurn, hidden) {
+  gameTitle.classList.add(hidden)
   if (currGame.isDraw) {
-    drawDisplay.classList.remove("hidden")
+    drawDisplay.classList.remove(hidden)
   } else if (isPlayerOneTurn) {
-    playerOneWinDisplay.classList.remove("hidden")
-    winsDisplay.classList.remove("hidden")
+    playerOneWinDisplay.classList.remove(hidden)
+    winsDisplay.classList.remove(hidden)
   } else {
-    playerTwoWinDisplay.classList.remove("hidden")
-    winsDisplay.classList.remove("hidden")
+    playerTwoWinDisplay.classList.remove(hidden)
+    winsDisplay.classList.remove(hidden)
   }
 }
 
-function resetTopWinsDisplay() {
-  gameTitle.classList.remove("hidden")
-  drawDisplay.classList.add("hidden")
-  winsDisplay.classList.add("hidden")
-  playerOneWinDisplay.classList.add("hidden")
-  playerTwoWinDisplay.classList.add("hidden")
+function resetTopWinsDisplay(hidden) {
+  gameTitle.classList.remove(hidden)
+  drawDisplay.classList.add(hidden)
+  winsDisplay.classList.add(hidden)
+  playerOneWinDisplay.classList.add(hidden)
+  playerTwoWinDisplay.classList.add(hidden)
 }
 
 function resetBoardDisplay() {
-  const bottomAndSide = ["#a", "#b", "#d", "#e"]
-  const bottomOnly = ["#c", "#f"]
-  const sideOnly = ["#g", "#h"]
-  bottomAndSide.forEach(function (thing, place, array) {
-    document.querySelector(`${array[place]}`).className = "bot-bor side-bor"
-  })
-  bottomOnly.forEach(function (thing, place, array) {
-    document.querySelector(`${array[place]}`).className = "bot-bor"
-  })
-  sideOnly.forEach(function (thing, place, array) {
-    document.querySelector(`${array[place]}`).className = "side-bor"
-  })
+  resetBorders(["#a", "#b", "#d", "#e"], "bot-bor side-bor")
+  resetBorders(["#c", "#f"], "bot-bor")
+  resetBorders(["#g", "#h"], "side-bor")
   document.querySelector("#i").className = ""
   toggleButtons(false)
   toggleCurrentPlayerDisplay("one")
+}
+
+function resetBorders(array, newClass) {
+  array.forEach(function (thing, place, array) {
+    document.querySelector(`${array[place]}`).className = newClass
+  })
 }
 
 function toggleButtons(onOrOff) {

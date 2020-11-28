@@ -9,15 +9,22 @@ class Turn {
   }
 
   wholeTurn(event) {
-    resetTopWinsDisplay()
-    currGame.isDraw = false
-    event.target.disabled = true
-    this.currGame.turnCount++
+    resetTopWinsDisplay("hidden")
+    this.disableButton(event)
+    this.incrementTurns(currGame)
     this.oneMove(event)
     this.flipPlayer()
     this.currGame.checkForWin(currGame, this.placement)
     tempPlayer.saveWinsToStorage(this.currWins)
     this.gameOverUpdate(currGame)
+  }
+
+  disableButton(event) {
+    event.target.disabled = true
+  }
+
+  incrementTurns(currGame) {
+    this.currGame.turnCount++
   }
 
   flipPlayer() {
@@ -35,7 +42,7 @@ class Turn {
       currGame.resetGame(currGame, this.play1, this.play2, this.currentPlayer)
       resetTopWinsDisplay()
       toggleButtons(true)
-      updateTopWinsDisplay(currGame, this.isPlayerOneTurn)
+      updateTopWinsDisplay(currGame, this.isPlayerOneTurn, "hidden")
     }
   }
 
@@ -49,7 +56,6 @@ class Turn {
       let useThisToken = 'p2'
       placeToken(event, useThisToken)
     }
-    // return currentPlayer
   }
 
   updateWins(currGame) {
